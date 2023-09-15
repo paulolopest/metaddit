@@ -1,0 +1,34 @@
+@import '../../Styles/Style.scss';
+
+.ctr {
+	display: flex;
+	padding: 0.5rem 1rem;
+	align-items: center;
+	border-bottom: 1px solid black;
+
+	.logo-ctr {
+		display: flex;
+		align-items: center;
+		gap: 0 0.3rem;
+
+		.logo-icon {
+		}
+		.logo-banner {
+			width: 6rem;
+			height: 1.5rem;
+		}
+	}
+
+	.hdr-userList {
+		div {
+			display: flex;
+			align-items: center;
+			gap: 0 0.5rem;
+			border: 1px solid black;
+			img {
+				width: $iconWidth;
+				height: $iconHeight;
+			}
+		}
+	}
+}

@@ -8,5 +8,10 @@ $customBlue: #0079d3;
 $weakWhite: #dae0e6;
 $primaryOrange: #ff4500;
 
-$iconWidth: 1.5rem;
+$iconWidth: 1.3rem;
 $iconHeight: 1.3rem;
+
+.App {
+	min-height: 100vh;
+	background-color: $weakWhite;
+}

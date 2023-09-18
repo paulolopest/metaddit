@@ -112,6 +112,10 @@ select {
 	font-family: 'Ibm plex sans';
 }
 
+input {
+	user-select: none;
+}
+
 body.loading {
 	overflow-y: hidden;
 }

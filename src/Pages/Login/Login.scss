@@ -1,0 +1,148 @@
+@import '../../Styles/Style.scss';
+
+.lgn-ctr {
+	display: flex;
+	height: 100vh;
+	width: 100%;
+	background-color: white;
+	font-size: 0.9rem;
+
+	span {
+		color: $customBlue;
+		cursor: pointer;
+	}
+
+	p {
+		strong {
+			text-transform: uppercase;
+			color: $customBlue;
+			cursor: pointer;
+		}
+	}
+
+	.lgn-banner {
+		height: 100%;
+		width: 10rem;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: cover;
+	}
+
+	.lgn-box {
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		height: 100%;
+		padding: 0 1rem;
+		gap: 3rem 0;
+
+		h1 {
+			font-size: 1.2rem;
+			font-weight: 500;
+		}
+
+		.lgn-box-header {
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem 0;
+		}
+
+		.lgn-card {
+			display: flex;
+			flex-direction: column;
+			width: 18rem;
+			gap: 1rem 0;
+
+			.lgn-c-header {
+				display: flex;
+				flex-direction: column;
+				gap: 1rem 0;
+				align-items: center;
+
+				div {
+					display: flex;
+					flex-direction: column;
+					gap: 0.7rem 0;
+
+					button {
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						padding: 0.8rem 0.5rem;
+						background-color: white;
+						border-radius: 20px;
+						width: 18rem;
+						font-weight: 500;
+						border: 1px solid #e1e1e1;
+						transition: 0.2s ease-in-out;
+
+						img {
+							width: 15px;
+							height: 15px;
+						}
+
+						&:hover {
+							border: 1px solid $customBlue;
+							background-color: #f0f6fc;
+						}
+					}
+				}
+			}
+
+			.or-box {
+				position: relative;
+				height: 1px;
+				background-color: #c1c1c1;
+				width: 100%;
+				margin: 0.5rem 0;
+
+				span {
+					text-transform: uppercase;
+					color: black;
+					position: absolute;
+					transform: translateX(50%);
+					transform: translateY(-50%);
+					background-color: white;
+					padding: 0.5rem;
+					top: 50%;
+					right: 45%;
+				}
+			}
+
+			.lgn-c-form {
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem 0;
+
+				form {
+					display: flex;
+					flex-direction: column;
+					gap: 1rem 0;
+
+					button {
+						height: 2rem;
+						background-color: $customBlue;
+						color: white;
+						font-weight: bold;
+						text-transform: uppercase;
+						outline: none;
+						border: none;
+						font-size: 0.9rem;
+						border-radius: 3px;
+
+						&:active {
+							background-color: #0060d3;
+						}
+						&:hover {
+							background-color: #0090d1;
+						}
+					}
+				}
+
+				p {
+					font-size: 0.8rem;
+				}
+			}
+		}
+	}
+}

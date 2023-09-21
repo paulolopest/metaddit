@@ -4,6 +4,7 @@ import Home from '../Pages/Home/Home';
 import Header from '../Components/Header/Header';
 import UserStorage from '../Contexts/UserContext';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Login from '../Pages/Login/Login';
 
 const RouterConfig = () => {
 	return (
@@ -12,6 +13,7 @@ const RouterConfig = () => {
 				<Header />
 				<Routes>
 					<Route path="/" element={<Home />} />
+					<Route path="/login/*" element={<Login />} />
 				</Routes>
 			</UserStorage>
 		</BrowserRouter>

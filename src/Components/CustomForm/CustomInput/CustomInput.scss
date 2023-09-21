@@ -1,0 +1,47 @@
+@import '../../../Styles//Style.scss';
+
+.customInput {
+	height: 3rem;
+	position: relative;
+
+	input {
+		width: 100%;
+		height: 100%;
+		padding-left: 0.5rem;
+		border-radius: 2px;
+		border: 1px solid #d1d1d1;
+
+		&:active ~ label {
+			top: -2%;
+			color: $customBlue;
+		}
+		&:focus ~ label {
+			top: -2%;
+			color: $customBlue;
+		}
+		&:active {
+			border: 1px solid $customBlue;
+		}
+		&:focus {
+			border: 1px solid $customBlue;
+		}
+	}
+
+	label {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		left: 0.5rem;
+		z-index: 1;
+		padding: 0.2rem;
+		background-color: white;
+		transition: 0.2s ease-in-out;
+	}
+
+	&:hover {
+		label {
+			top: -2%;
+			color: $customBlue;
+		}
+	}
+}

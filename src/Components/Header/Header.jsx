@@ -1,19 +1,22 @@
 import React from 'react';
 import './Header.scss';
+import { useLocation } from 'react-router-dom';
+import lupaIcon from '../../Assets/icons/lupa.svg';
+import plusIcon from '../../Assets/icons/plus.svg';
 import arrowIcon from '../../Assets/icons/arrow.svg';
+import popularIcon from '../../Assets/icons/popular.svg';
+import karmaIcon from '../../Assets/icons/karma-icon.svg';
 import siteIcon from '../../Assets/icons/metaddit-icon.svg';
 import whiteBanner from '../../Assets/imgs/metaddit_white.png';
 import blackBanner from '../../Assets/imgs/metaddit_black.png';
-import homeIcon from '../../Assets/icons/home-1391-svgrepo-com.svg';
-import lupaIcon from '../../Assets/icons/lupa.svg';
 import notificationIcon from '../../Assets/icons/notification.svg';
-import plusIcon from '../../Assets/icons/plus.svg';
-import popularIcon from '../../Assets/icons/popular.svg';
-import karmaIcon from '../../Assets/icons/karma-icon.svg';
+import homeIcon from '../../Assets/icons/home-1391-svgrepo-com.svg';
 
 const Header = () => {
+	const location = useLocation();
+
 	return (
-		<div className="ctr">
+		<div className={location.pathname === '/login' || '/signup' ? 'displayNone' : 'hdr-ctr'}>
 			<div className="hrd-logo-ctr">
 				<img className="logo-icon" src={siteIcon} alt="site icon" />
 				<img className="logo-banner" src={blackBanner} alt="site banner" />

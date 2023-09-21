@@ -9,6 +9,7 @@ import lupaIcon from '../../Assets/icons/lupa.svg';
 import notificationIcon from '../../Assets/icons/notification.svg';
 import plusIcon from '../../Assets/icons/plus.svg';
 import popularIcon from '../../Assets/icons/popular.svg';
+import karmaIcon from '../../Assets/icons/karma-icon.svg';
 
 const Header = () => {
 	return (
@@ -45,15 +46,13 @@ const Header = () => {
 			</div>
 
 			<div className="hdr-profile">
-				<div className="hdr-p-fc">
+				<div className="hdr-profile-pic">
+					<h1 />
 					<div>
-						<img src={popularIcon} alt="popular icon" />
+						<p>Additional</p>
 						<div>
-							<p>Nickname</p>
-							<div>
-								<img src={popularIcon} alt="popular icon" />
-								10 Karma
-							</div>
+							<img src={karmaIcon} />
+							<p>10 Karma</p>
 						</div>
 					</div>
 				</div>

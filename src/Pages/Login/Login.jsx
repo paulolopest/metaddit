@@ -1,11 +1,28 @@
 import React from 'react';
 import './Login.scss';
-import loginBanner from '../../Assets/imgs/login-banner.png';
-import googleIcon from '../../Assets/icons/google.svg';
+import { useForm } from 'react-hook-form';
 import appleIcon from '../../Assets/icons/apple.svg';
+import googleIcon from '../../Assets/icons/google.svg';
+import loginBanner from '../../Assets/imgs/login-banner.png';
 import CustomInput from '../../Components/CustomForm/CustomInput/CustomInput';
+import { UserContext } from './../../Contexts/UserContext';
 
 const Login = () => {
+	const [signUpPage, setSignUpPage] = React.useState(false);
+
+	const user = React.useContext(UserContext);
+
+	const {
+		register,
+		handleSubmit,
+		watch,
+		formState: { errors },
+	} = useForm();
+
+	const handleLogin = async (userParameter, password) => {
+		await user.userLogin(userParameter, password);
+	};
+
 	return (
 		<div className="lgn-ctr">
 			<div className="lgn-banner" style={{ backgroundImage: `url(${loginBanner})` }} />
@@ -27,6 +44,7 @@ const Login = () => {
 								Continuar com o Google
 								<span />
 							</button>
+
 							<button>
 								<img src={appleIcon} />
 								Continuar com a Apple
@@ -40,19 +58,63 @@ const Login = () => {
 					</div>
 
 					<div className="lgn-c-form">
-						<form>
-							<CustomInput placeholder="Email ou username" />
-							<CustomInput placeholder="Senha"></CustomInput>
-							<button>Entrar</button>
+						<form onSubmit={handleSubmit((data) => handleLogin(data.userParameter, data.password))}>
+							<CustomInput
+								register={register}
+								errors={errors.userParameter?.message}
+								name="userParameter"
+								required={'Preencha esse campo'}
+								placeholder={!signUpPage ? 'Email ou username' : 'Email'}
+								pattern={
+									signUpPage && {
+										value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+										message: 'Email inválido',
+									}
+								}
+								watch={watch('userParameter')}
+							/>
+							<CustomInput
+								register={register}
+								errors={errors.password?.message}
+								name="password"
+								required={{ value: true, message: 'Preencha esse campo' }}
+								minLength={
+									signUpPage && { value: 8, message: 'O campo deve conter ao menos 8 caracteres' }
+								}
+								type="password "
+								placeholder="Senha"
+								watch={watch('password')}
+							/>
+							{signUpPage && (
+								<CustomInput
+									register={register}
+									errors={errors.username?.message}
+									required={true}
+									name={'username'}
+									pattern={/^[a-zA-Z0-9]+$/}
+									placeholder="Nome de usuário"
+									watch={watch('username')}
+								/>
+							)}
+
+							<button>{signUpPage ? 'Cadastrar' : 'Entrar'}</button>
 						</form>
-						<p>
-							Esqueceu a <span>senha</span>?
-						</p>
+						{!signUpPage && (
+							<p>
+								Esqueceu a <span>senha</span>?
+							</p>
+						)}
 					</div>
 
-					<p>
-						Primeira vez no metaddit? <strong>Cadastre-se</strong>
-					</p>
+					{!signUpPage ? (
+						<p onClick={() => setSignUpPage(true)}>
+							Primeira vez no metaddit? <strong>Cadastre-se</strong>
+						</p>
+					) : (
+						<p onClick={() => setSignUpPage(false)}>
+							Já possui uma conta? <strong>Entre</strong>
+						</p>
+					)}
 				</div>
 			</div>
 		</div>

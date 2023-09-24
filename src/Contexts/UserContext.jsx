@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { UserRequest } from '../Requests/UserRequest';
 
-const UserContext = React.createContext();
+export const UserContext = React.createContext();
 
 const userRequest = new UserRequest();
 
@@ -24,14 +24,14 @@ const UserStorage = ({ children }) => {
 		setLogin(false);
 	}, []);
 
-	const userLogin = React.useCallback(async (email, password) => {
+	const userLogin = React.useCallback(async (credential, password) => {
 		let req;
 		try {
 			setError(null);
 			setLoading(true);
 
 			const body = {
-				email,
+				credential,
 				password,
 			};
 

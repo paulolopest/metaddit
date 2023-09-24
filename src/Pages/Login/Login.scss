@@ -45,6 +45,10 @@
 			display: flex;
 			flex-direction: column;
 			gap: 0.5rem 0;
+
+			p {
+				line-height: 1.1;
+			}
 		}
 
 		.lgn-card {
@@ -129,7 +133,11 @@
 						border: none;
 						font-size: 0.9rem;
 						border-radius: 3px;
+						transition: 0.2s ease-in-out;
 
+						&:focus {
+							background-color: #0090d1;
+						}
 						&:active {
 							background-color: #0060d3;
 						}

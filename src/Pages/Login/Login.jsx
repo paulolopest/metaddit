@@ -1,16 +1,20 @@
 import React from 'react';
 import './Login.scss';
-import { useForm } from 'react-hook-form';
+import { get, useForm } from 'react-hook-form';
 import appleIcon from '../../Assets/icons/apple.svg';
 import googleIcon from '../../Assets/icons/google.svg';
+import { UserContext } from './../../Contexts/UserContext';
 import loginBanner from '../../Assets/imgs/login-banner.png';
 import CustomInput from '../../Components/CustomForm/CustomInput/CustomInput';
-import { UserContext } from './../../Contexts/UserContext';
+import { UserRequest } from '../../Requests/UserRequest';
+import useAxios from './../../Hooks/useAxios';
 
 const Login = () => {
 	const [signUpPage, setSignUpPage] = React.useState(false);
 
-	const user = React.useContext(UserContext);
+	const { userLogin } = React.useContext(UserContext);
+	const { data, error, loading, post } = useAxios();
+	const userReq = new UserRequest();
 
 	const {
 		register,
@@ -19,8 +23,16 @@ const Login = () => {
 		formState: { errors },
 	} = useForm();
 
-	const handleLogin = async (userParameter, password) => {
-		await user.userLogin(userParameter, password);
+	const formReq = async (data) => {
+		const bodySignUp = {
+			email: data.credential,
+			username: data.username,
+			password: data.password,
+		};
+
+		const { url } = userReq.USER_SIGNUP();
+
+		!signUpPage ? await userLogin(data.credential, data.password) : await post(url, bodySignUp);
 	};
 
 	return (
@@ -58,11 +70,11 @@ const Login = () => {
 					</div>
 
 					<div className="lgn-c-form">
-						<form onSubmit={handleSubmit((data) => handleLogin(data.userParameter, data.password))}>
+						<form onSubmit={handleSubmit(formReq)}>
 							<CustomInput
 								register={register}
-								errors={errors.userParameter?.message}
-								name="userParameter"
+								errors={errors.credential?.message}
+								name="credential"
 								required={'Preencha esse campo'}
 								placeholder={!signUpPage ? 'Email ou username' : 'Email'}
 								pattern={
@@ -71,7 +83,7 @@ const Login = () => {
 										message: 'Email inválido',
 									}
 								}
-								watch={watch('userParameter')}
+								watch={watch('credential')}
 							/>
 							<CustomInput
 								register={register}

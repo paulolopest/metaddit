@@ -1,4 +1,4 @@
-const BASE_URL = 'back-metaddit.vercel.app';
+const BASE_URL = 'https://back-metaddit.vercel.app';
 
 export class UserRequest {
 	USER_LOGIN = () => {

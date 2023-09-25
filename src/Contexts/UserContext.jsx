@@ -36,7 +36,7 @@ const UserStorage = ({ children }) => {
 			};
 
 			const { url } = userRequest.USER_LOGIN();
-			req = await axios.post(url, body, null);
+			req = await axios.post(url, body);
 
 			window.localStorage.setItem('token', req.data);
 
@@ -45,6 +45,7 @@ const UserStorage = ({ children }) => {
 		} catch (err) {
 			setData(null);
 			setError(err.response.data);
+			console.log(err);
 			setLoading(false);
 		} finally {
 			setLoading(false);

@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import lupaIcon from '../../Assets/icons/lupa.svg';
 import plusIcon from '../../Assets/icons/plus.svg';
 import arrowIcon from '../../Assets/icons/arrow.svg';
+import { UserContext } from '../../Contexts/UserContext';
 import popularIcon from '../../Assets/icons/popular.svg';
 import karmaIcon from '../../Assets/icons/karma-icon.svg';
 import siteIcon from '../../Assets/icons/metaddit-icon.svg';
@@ -11,7 +12,6 @@ import whiteBanner from '../../Assets/imgs/metaddit_white.png';
 import blackBanner from '../../Assets/imgs/metaddit_black.png';
 import notificationIcon from '../../Assets/icons/notification.svg';
 import homeIcon from '../../Assets/icons/home-1391-svgrepo-com.svg';
-import { UserContext } from '../../Contexts/UserContext';
 
 const Header = () => {
 	const [loginModal, setLoginModal] = React.useState(false);

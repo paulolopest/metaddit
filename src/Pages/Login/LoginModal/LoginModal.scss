@@ -1,0 +1,181 @@
+@import '../../../Styles/Style.scss';
+
+.lgn-md-ctr {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	backdrop-filter: brightness(0.7);
+	z-index: 2;
+
+	span {
+		color: $customBlue;
+		cursor: pointer;
+	}
+
+	.lgn-md-box {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 3rem;
+		height: 42rem;
+		width: 25rem;
+		background-color: white;
+		border-radius: 10px;
+		gap: 2rem 0;
+
+		.lgn-md-box-header {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem 0;
+
+			h1 {
+				font-size: 1.3rem;
+				font-weight: 500;
+			}
+
+			p {
+				font-size: 0.8rem;
+				line-height: 1.3;
+
+				span {
+					color: $customBlue;
+				}
+			}
+		}
+
+		.lgn-md-card {
+			display: flex;
+			flex-direction: column;
+			width: 18rem;
+			gap: 1rem 0;
+
+			.lgn-md-c-header {
+				display: flex;
+				flex-direction: column;
+				gap: 1.5rem 0;
+				align-items: center;
+
+				div {
+					display: flex;
+					flex-direction: column;
+					gap: 0.7rem 0;
+
+					button {
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						padding: 0.8rem 0.5rem;
+						background-color: white;
+						border-radius: 20px;
+						width: 15rem;
+						font-weight: 500;
+						border: 1px solid #e1e1e1;
+						transition: 0.2s ease-in-out;
+
+						img {
+							width: 15px;
+							height: 15px;
+						}
+
+						&:hover {
+							background-color: #f0f6fc;
+						}
+					}
+				}
+			}
+
+			.or-box {
+				position: relative;
+				height: 1px;
+				background-color: #e1e1e1;
+				width: 100%;
+				margin: 0.5rem 0;
+
+				span {
+					text-transform: uppercase;
+					color: black;
+					position: absolute;
+					transform: translateX(50%);
+					transform: translateY(-50%);
+					background-color: white;
+					padding: 0.5rem;
+					top: 50%;
+					right: 42%;
+				}
+			}
+
+			.lgn-md-c-form {
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem 0;
+
+				form {
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					gap: 1rem 0;
+
+					label {
+						font-size: 0.9rem;
+					}
+
+					input {
+						// width: 18rem;
+					}
+
+					button {
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						width: 19rem;
+						height: 2.7rem;
+						background-color: #ff4500;
+						color: white;
+						font-weight: bold;
+						text-transform: uppercase;
+						outline: none;
+						border: none;
+						font-size: 1rem;
+						border-radius: 3px;
+						transition: 0.2s ease-in-out;
+
+						&:focus {
+							background-color: #ff6500;
+						}
+						&:active {
+							background-color: #ff3500;
+						}
+						&:hover {
+							background-color: #ff6500;
+						}
+					}
+				}
+
+				p {
+					font-size: 0.8rem;
+				}
+
+				.lgn-md-error {
+					color: #f23333;
+				}
+
+				.lgn-md-form-footer {
+					display: flex;
+					flex-direction: column;
+					gap: 1rem 0;
+
+					strong {
+						text-transform: uppercase;
+						color: $customBlue;
+						cursor: pointer;
+					}
+				}
+			}
+		}
+	}
+}

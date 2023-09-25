@@ -1,6 +1,5 @@
 import React from 'react';
 import './CustomInput.scss';
-import { useForm } from 'react-hook-form';
 
 const CustomInput = ({ placeholder, register, name, required, minLength, pattern, type, errors, watch }) => {
 	return (

@@ -23,4 +23,10 @@ export class UserRequest {
 			},
 		};
 	};
+
+	VALIDATE_TOKEN = () => {
+		return {
+			url: `${BASE_URL}/user/validate-token`,
+		};
+	};
 }

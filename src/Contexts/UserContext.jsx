@@ -100,6 +100,20 @@ const UserStorage = ({ children }) => {
 		}
 	}, []);
 
+	React.useEffect(() => {
+		const autoLogin = () => {
+			const token = window.localStorage.getItem(token);
+			if (token) {
+				try {
+					setError(null);
+					setLoading(true);
+
+					// const {url, body} = userRequest.
+				} catch (error) {}
+			}
+		};
+	}, []);
+
 	return (
 		<UserContext.Provider
 			value={{ data, loading, error, login, userLogin, userRegister, userLogout, getProfile }}

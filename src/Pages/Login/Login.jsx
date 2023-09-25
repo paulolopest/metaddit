@@ -103,7 +103,7 @@ const Login = () => {
 							{user.error && <p className="lgn-error">{user.error}</p>}
 
 							{user.loading ? (
-								<button disabled>{signUpPage ? 'Cadastrando...' : 'Entrando...'}</button>
+								<button>{signUpPage ? 'Cadastrando...' : 'Entrando...'}</button>
 							) : (
 								<button>{signUpPage ? 'Cadastrar' : 'Entrar'}</button>
 							)}

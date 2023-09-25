@@ -52,6 +52,34 @@ const UserStorage = ({ children }) => {
 		}
 	}, []);
 
+	const userRegister = React.useCallback(async (email, password, username) => {
+		let req;
+		try {
+			setError(null);
+			setLoading(true);
+
+			const body = {
+				email,
+				password,
+				username,
+			};
+
+			const { url } = userRequest.USER_SIGNUP();
+			req = await axios.post(url, body);
+
+			window.localStorage.setItem('token', req.data);
+
+			setLogin(true);
+			navigate('/');
+		} catch (err) {
+			setData(null);
+			setError(err.response.data);
+			setLoading(false);
+		} finally {
+			setLoading(false);
+		}
+	});
+
 	const getProfile = React.useCallback(async () => {
 		let req;
 		try {
@@ -73,7 +101,9 @@ const UserStorage = ({ children }) => {
 	}, []);
 
 	return (
-		<UserContext.Provider value={{ data, loading, error, login, userLogin, userLogout, getProfile }}>
+		<UserContext.Provider
+			value={{ data, loading, error, login, userLogin, userRegister, userLogout, getProfile }}
+		>
 			{children}
 		</UserContext.Provider>
 	);

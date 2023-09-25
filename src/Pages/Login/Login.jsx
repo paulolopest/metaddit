@@ -1,20 +1,16 @@
 import React from 'react';
 import './Login.scss';
-import { get, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import appleIcon from '../../Assets/icons/apple.svg';
 import googleIcon from '../../Assets/icons/google.svg';
 import { UserContext } from './../../Contexts/UserContext';
 import loginBanner from '../../Assets/imgs/login-banner.png';
 import CustomInput from '../../Components/CustomForm/CustomInput/CustomInput';
-import { UserRequest } from '../../Requests/UserRequest';
-import useAxios from './../../Hooks/useAxios';
 
 const Login = () => {
 	const [signUpPage, setSignUpPage] = React.useState(false);
 
-	const { userLogin } = React.useContext(UserContext);
-	const { data, error, loading, post } = useAxios();
-	const userReq = new UserRequest();
+	const user = React.useContext(UserContext);
 
 	const {
 		register,
@@ -24,15 +20,9 @@ const Login = () => {
 	} = useForm();
 
 	const formReq = async (data) => {
-		const bodySignUp = {
-			email: data.credential,
-			username: data.username,
-			password: data.password,
-		};
-
-		const { url } = userReq.USER_SIGNUP();
-
-		!signUpPage ? await userLogin(data.credential, data.password) : await post(url, bodySignUp);
+		!signUpPage
+			? await user.userLogin(data.credential, data.password)
+			: await user.userRegister(data.credential, data.password, data.username);
 	};
 
 	return (
@@ -73,9 +63,10 @@ const Login = () => {
 						<form onSubmit={handleSubmit(formReq)}>
 							<CustomInput
 								register={register}
-								errors={errors.credential?.message}
 								name="credential"
+								type="email"
 								required={'Preencha esse campo'}
+								errors={errors.credential?.message}
 								placeholder={!signUpPage ? 'Email ou username' : 'Email'}
 								pattern={
 									signUpPage && {
@@ -87,29 +78,35 @@ const Login = () => {
 							/>
 							<CustomInput
 								register={register}
-								errors={errors.password?.message}
 								name="password"
+								type="password"
 								required={{ value: true, message: 'Preencha esse campo' }}
+								errors={errors.password?.message}
+								placeholder="Senha"
 								minLength={
 									signUpPage && { value: 8, message: 'O campo deve conter ao menos 8 caracteres' }
 								}
-								type="password "
-								placeholder="Senha"
 								watch={watch('password')}
 							/>
 							{signUpPage && (
 								<CustomInput
 									register={register}
+									name="username"
+									required={'Preencha esse campo'}
 									errors={errors.username?.message}
-									required={true}
-									name={'username'}
-									pattern={/^[a-zA-Z0-9]+$/}
 									placeholder="Nome de usuário"
+									pattern={/^[a-zA-Z0-9]+$/}
 									watch={watch('username')}
 								/>
 							)}
 
-							<button>{signUpPage ? 'Cadastrar' : 'Entrar'}</button>
+							{user.error && <p className="lgn-error">{user.error}</p>}
+
+							{user.loading ? (
+								<button disabled>{signUpPage ? 'Cadastrando...' : 'Entrando...'}</button>
+							) : (
+								<button>{signUpPage ? 'Cadastrar' : 'Entrar'}</button>
+							)}
 						</form>
 						{!signUpPage && (
 							<p>

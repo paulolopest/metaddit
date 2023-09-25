@@ -11,18 +11,25 @@ import whiteBanner from '../../Assets/imgs/metaddit_white.png';
 import blackBanner from '../../Assets/imgs/metaddit_black.png';
 import notificationIcon from '../../Assets/icons/notification.svg';
 import homeIcon from '../../Assets/icons/home-1391-svgrepo-com.svg';
+import { UserContext } from '../../Contexts/UserContext';
 
 const Header = () => {
+	const [loginModal, setLoginModal] = React.useState(false);
+
 	const location = useLocation();
 
+	const user = React.useContext(UserContext);
+
+	console.log(loginModal);
+
 	return (
-		<div className={location.pathname === '/login' || '/signup' ? 'displayNone' : 'hdr-ctr'}>
+		<div className={location.pathname === '/login' ? 'displayNone' : 'hdr-ctr'}>
 			<div className="hrd-logo-ctr">
 				<img className="logo-icon" src={siteIcon} alt="site icon" />
 				<img className="logo-banner" src={blackBanner} alt="site banner" />
 			</div>
 
-			<div className="hdr-userList">
+			<div className={user.login ? 'hdr-userList' : 'displayNone'}>
 				<div>
 					<img src={homeIcon} alt="home icon" />
 					<p>Página inicial</p>
@@ -36,7 +43,7 @@ const Header = () => {
 				<input placeholder="Pesquisar no Metaddit" />
 			</div>
 
-			<div className="hdr-nav">
+			<div className={user.login ? 'hdr-nav' : 'displayNone'}>
 				<div>
 					<img src={popularIcon} alt="popular icon" />
 				</div>
@@ -48,19 +55,25 @@ const Header = () => {
 				</div>
 			</div>
 
-			<div className="hdr-profile">
-				<div className="hdr-profile-pic">
-					<h1 />
-					<div>
-						<p>Additional</p>
+			{user.login ? (
+				<div className="hdr-profile">
+					<div className="hdr-profile-pic">
+						<h1 />
 						<div>
-							<img src={karmaIcon} />
-							<p>10 Karma</p>
+							<p>Additional</p>
+							<div>
+								<img src={karmaIcon} />
+								<p>10 Karma</p>
+							</div>
 						</div>
 					</div>
+					<img style={{ rotate: '90deg' }} src={arrowIcon} />
 				</div>
-				<img style={{ rotate: '90deg' }} src={arrowIcon} />
-			</div>
+			) : (
+				<button onClick={() => setLoginModal(!loginModal)} className="hdr-loginButton">
+					Entrar
+				</button>
+			)}
 		</div>
 	);
 };

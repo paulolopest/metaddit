@@ -179,4 +179,16 @@
 			border-radius: 3px;
 		}
 	}
+
+	.hdr-loginButton {
+		background-color: $primaryOrange;
+		color: white;
+		outline: none;
+		border: none;
+		height: 2.5rem;
+		border-radius: 20px;
+		padding: 0 0.7rem;
+		font-weight: 500;
+		font-size: 14px;
+	}
 }

@@ -6,7 +6,7 @@ import googleIcon from '../../../Assets/icons/google.svg';
 import { UserContext } from '../../../Contexts/UserContext';
 import CustomInput from './../../../Components/CustomForm/CustomInput/CustomInput';
 
-const LoginModal = ({ loginModal, setLoginModal }) => {
+const LoginModal = ({ setLoginModal }) => {
 	const [signUpModal, setSignUpModal] = React.useState(false);
 
 	const user = React.useContext(UserContext);
@@ -25,6 +25,10 @@ const LoginModal = ({ loginModal, setLoginModal }) => {
 			await user.userRegister(data.credential, data.password, data.username);
 		}
 	};
+
+	React.useEffect(() => {
+		if (user.login) setLoginModal(false);
+	}, [user.login]);
 
 	return (
 		<div className="lgn-md-ctr">

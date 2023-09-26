@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { UserRequest } from '../Requests/UserRequest';
 
 export const UserContext = React.createContext();
+const token = window.localStorage.getItem('token');
 
 const userRequest = new UserRequest();
-const token = window.localStorage.getItem('token');
 
 const UserStorage = ({ children }) => {
 	const [data, setData] = React.useState(null);
@@ -14,22 +14,22 @@ const UserStorage = ({ children }) => {
 	const [login, setLogin] = React.useState(false);
 	const [loading, setLoading] = React.useState(false);
 
-	console.log(login);
-
 	const navigate = useNavigate();
 
-	const userLogout = React.useCallback(() => {
+	const userLogout = () => {
 		setData(null);
 		setError(null);
 		setLoading(false);
 
 		window.localStorage.removeItem('token');
+
 		setLogin(false);
-	}, []);
+	};
 
 	const userLogin = React.useCallback(async (credential, password) => {
 		let req;
 		try {
+			setData(null);
 			setError(null);
 			setLoading(true);
 
@@ -59,6 +59,7 @@ const UserStorage = ({ children }) => {
 		async (email, password, username) => {
 			let req;
 			try {
+				setData(null);
 				setError(null);
 				setLoading(true);
 
@@ -73,6 +74,7 @@ const UserStorage = ({ children }) => {
 
 				window.localStorage.setItem('token', req.data);
 
+				await getProfile();
 				setLogin(true);
 				navigate('/');
 			} catch (err) {
@@ -86,25 +88,28 @@ const UserStorage = ({ children }) => {
 		[navigate]
 	);
 
-	const getProfile = React.useCallback(async (token) => {
-		let req;
-		try {
-			setError(null);
-			setLoading(true);
+	const getProfile = React.useCallback(
+		async (token) => {
+			try {
+				setData(null);
+				setError(null);
+				setLoading(true);
 
-			const { url, options } = userRequest.GET_PROFILE(token);
+				const { url, options } = userRequest.GET_PROFILE(token);
 
-			req = await axios.get(url, options);
+				const req = await axios.get(url, options);
 
-			setData(req.data);
-		} catch (err) {
-			setData(null);
-			setError(err.response.data);
-			setLoading(false);
-		} finally {
-			setLoading(false);
-		}
-	}, []);
+				setData(req.data);
+			} catch (err) {
+				setData(null);
+				setError(err.response.data);
+				setLoading(false);
+			} finally {
+				setLoading(false);
+			}
+		},
+		[token]
+	);
 
 	React.useEffect(() => {
 		const autoLogin = async () => {

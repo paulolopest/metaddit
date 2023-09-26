@@ -1,4 +1,5 @@
 const BASE_URL = 'https://back-metaddit.vercel.app';
+const token = window.localStorage.getItem('token');
 
 export class UserRequest {
 	USER_LOGIN = () => {
@@ -13,7 +14,7 @@ export class UserRequest {
 		};
 	};
 
-	GET_PROFILE = (token) => {
+	GET_PROFILE = () => {
 		return {
 			url: `${BASE_URL}/profile`,
 			options: {

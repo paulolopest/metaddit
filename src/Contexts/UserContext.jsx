@@ -4,17 +4,19 @@ import { useNavigate } from 'react-router-dom';
 import { UserRequest } from '../Requests/UserRequest';
 
 export const UserContext = React.createContext();
-const token = window.localStorage.getItem('token');
 
 const userRequest = new UserRequest();
 
 const UserStorage = ({ children }) => {
 	const [data, setData] = React.useState(null);
 	const [error, setError] = React.useState(null);
-	const [login, setLogin] = React.useState(false);
+	const [login, setLogin] = React.useState(null);
 	const [loading, setLoading] = React.useState(false);
 
 	const navigate = useNavigate();
+	const token = window.localStorage.getItem('token');
+
+	console.log(token);
 
 	const userLogout = () => {
 		setData(null);
@@ -22,7 +24,7 @@ const UserStorage = ({ children }) => {
 		setLoading(false);
 
 		window.localStorage.removeItem('token');
-
+		window.location.reload();
 		setLogin(false);
 	};
 
@@ -43,73 +45,68 @@ const UserStorage = ({ children }) => {
 
 			window.localStorage.setItem('token', req.data);
 
+			await getProfile(token);
+
+			window.location.reload();
 			setLogin(true);
-			navigate('/');
 		} catch (err) {
 			setData(null);
 			setError(err.response.data);
-			console.log(err);
 			setLoading(false);
 		} finally {
 			setLoading(false);
 		}
 	}, []);
 
-	const userRegister = React.useCallback(
-		async (email, password, username) => {
-			let req;
-			try {
-				setData(null);
-				setError(null);
-				setLoading(true);
+	const userRegister = React.useCallback(async (email, password, username) => {
+		let req;
+		try {
+			setData(null);
+			setError(null);
+			setLoading(true);
 
-				const body = {
-					email,
-					password,
-					username,
-				};
+			const body = {
+				email,
+				password,
+				username,
+			};
 
-				const { url } = userRequest.USER_SIGNUP();
-				req = await axios.post(url, body);
+			const { url } = userRequest.USER_SIGNUP();
+			req = await axios.post(url, body);
 
-				window.localStorage.setItem('token', req.data);
+			window.localStorage.setItem('token', req.data);
 
-				await getProfile();
-				setLogin(true);
-				navigate('/');
-			} catch (err) {
-				setData(null);
-				setError(err.response.data);
-				setLoading(false);
-			} finally {
-				setLoading(false);
-			}
-		},
-		[navigate]
-	);
+			await getProfile();
+			setLogin(true);
+			navigate('/');
+		} catch (err) {
+			setData(null);
+			setError(err.response.data);
+			setLoading(false);
+		} finally {
+			setLoading(false);
+		}
+	}, []);
 
-	const getProfile = React.useCallback(
-		async (token) => {
-			try {
-				setData(null);
-				setError(null);
-				setLoading(true);
+	const getProfile = React.useCallback(async (token) => {
+		try {
+			setData(null);
+			setError(null);
+			setLoading(true);
 
-				const { url, options } = userRequest.GET_PROFILE(token);
+			const { url, options } = userRequest.GET_PROFILE(token);
 
-				const req = await axios.get(url, options);
+			const req = await axios.get(url, options);
 
-				setData(req.data);
-			} catch (err) {
-				setData(null);
-				setError(err.response.data);
-				setLoading(false);
-			} finally {
-				setLoading(false);
-			}
-		},
-		[token]
-	);
+			setData(req.data);
+		} catch (err) {
+			setData(null);
+			setError(err.response.data);
+			setLoading(false);
+		} finally {
+			setLoading(false);
+		}
+	}, []);
 
 	React.useEffect(() => {
 		const autoLogin = async () => {

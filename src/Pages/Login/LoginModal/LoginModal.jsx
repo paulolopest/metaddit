@@ -6,10 +6,10 @@ import googleIcon from '../../../Assets/icons/google.svg';
 import { UserContext } from '../../../Contexts/UserContext';
 import CustomInput from './../../../Components/CustomForm/CustomInput/CustomInput';
 
-const LoginModal = ({ setLoginModal }) => {
+const LoginModal = ({ setLoginModal, onClickOutside }) => {
 	const [signUpModal, setSignUpModal] = React.useState(false);
 
-	const user = React.useContext(UserContext);
+	const { userLogin, userRegister, login, error, loading } = React.useContext(UserContext);
 
 	const {
 		register,
@@ -20,18 +20,18 @@ const LoginModal = ({ setLoginModal }) => {
 
 	const formReq = async (data) => {
 		if (!signUpModal) {
-			await user.userLogin(data.credential, data.password);
+			await userLogin(data.credential, data.password);
 		} else {
-			await user.userRegister(data.credential, data.password, data.username);
+			await userRegister(data.credential, data.password, data.username);
 		}
 	};
 
 	React.useEffect(() => {
-		if (user.login) setLoginModal(false);
-	}, [user.login]);
+		if (login) setLoginModal(false);
+	}, [login]);
 
 	return (
-		<div className="lgn-md-ctr">
+		<div onClick={onClickOutside} className="lgn-md-ctr">
 			<div className="lgn-md-box">
 				<div className="lgn-md-box-header">
 					<h1>Entrar</h1>
@@ -105,9 +105,9 @@ const LoginModal = ({ setLoginModal }) => {
 									/>
 								)}
 
-								{user.error && <p className="lgn-md-error">{user.error}</p>}
+								{error && <p className="lgn-md-error">{error}</p>}
 
-								{user.loading ? (
+								{loading ? (
 									<button>{signUpModal ? 'Cadastrando...' : 'Entrando...'}</button>
 								) : (
 									<button>{signUpModal ? 'Cadastrar' : 'Entrar'}</button>

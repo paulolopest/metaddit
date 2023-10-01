@@ -3,20 +3,23 @@ import Home from '../Pages/Home/Home';
 import Login from '../Pages/Login/Login';
 import Header from '../Components/Header/Header';
 import UserStorage from '../Contexts/UserContext';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, RouterProvider, Routes, createBrowserRouter } from 'react-router-dom';
+import NotFoundPage from '../Pages/NotFound/NotFoundPage';
 
 const RouterConfig = () => {
-	return (
-		<BrowserRouter>
-			<UserStorage>
-				<Header />
-				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route path="login/*" element={<Login />} />
-				</Routes>
-			</UserStorage>
-		</BrowserRouter>
-	);
+	const router = createBrowserRouter([
+		{
+			path: '/',
+			element: <Home />,
+			errorElement: <NotFoundPage />,
+		},
+		{
+			path: '/login',
+			element: <Login />,
+		},
+	]);
+
+	return <RouterProvider router={router} />;
 };
 
 export default RouterConfig;

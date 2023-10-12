@@ -1,25 +1,23 @@
 import React from 'react';
-import Home from '../Pages/Home/Home';
-import Login from '../Pages/Login/Login';
-import Header from '../Components/Header/Header';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Header from './../Components/Header/Header';
+import Home from './../Pages/Home/Home';
+import Login from './../Pages/Login/Login';
 import UserStorage from '../Contexts/UserContext';
-import { BrowserRouter, Route, RouterProvider, Routes, createBrowserRouter } from 'react-router-dom';
-import NotFoundPage from '../Pages/NotFound/NotFoundPage';
 
 const RouterConfig = () => {
-	const router = createBrowserRouter([
-		{
-			path: '/',
-			element: <Home />,
-			errorElement: <NotFoundPage />,
-		},
-		{
-			path: '/login',
-			element: <Login />,
-		},
-	]);
+	return (
+		<BrowserRouter>
+			<UserStorage>
+				<Header />
 
-	return <RouterProvider router={router} />;
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/login/*" element={<Login />} />
+				</Routes>
+			</UserStorage>
+		</BrowserRouter>
+	);
 };
 
 export default RouterConfig;

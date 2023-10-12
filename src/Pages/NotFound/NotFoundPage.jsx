@@ -1,7 +1,14 @@
 import React from 'react';
+import { useRouteError } from 'react-router-dom';
 
 const NotFoundPage = () => {
-	return <div>Num Achei, mals ae</div>;
+	const error = useRouteError();
+	return (
+		<div>
+			<p>Num achei, mals ae</p>
+			<h1>{error.statusText || error.message}</h1>
+		</div>
+	);
 };
 
 export default NotFoundPage;

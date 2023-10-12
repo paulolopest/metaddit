@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { UserRequest } from '../Requests/UserRequest';
 
-export const UserContext = React.createContext();
+export const UserContext = React.createContext('');
 
 const userRequest = new UserRequest();
 
@@ -15,8 +15,6 @@ const UserStorage = ({ children }) => {
 
 	const navigate = useNavigate();
 	const token = window.localStorage.getItem('token');
-
-	console.log(token);
 
 	const userLogout = () => {
 		setData(null);
@@ -121,7 +119,7 @@ const UserStorage = ({ children }) => {
 					if (res.status !== 200) throw new Error('Invalid credentials');
 
 					setLogin(true);
-				} catch (error) {
+				} catch (err) {
 					userLogout();
 				} finally {
 					setLoading(false);
@@ -134,7 +132,7 @@ const UserStorage = ({ children }) => {
 
 	return (
 		<UserContext.Provider
-			value={{ data, loading, error, login, userLogin, userRegister, userLogout, getProfile }}
+			value={{ userLogin, userRegister, userLogout, getProfile, data, error, login, loading }}
 		>
 			{children}
 		</UserContext.Provider>

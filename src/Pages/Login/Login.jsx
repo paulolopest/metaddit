@@ -10,7 +10,9 @@ import CustomInput from '../../Components/CustomForm/CustomInput/CustomInput';
 const Login = () => {
 	const [signUpPage, setSignUpPage] = React.useState(false);
 
-	const user = React.useContext(UserContext);
+	const { error, loading, userLogin, userRegister } = React.useContext(UserContext);
+
+	console.log(error);
 
 	const {
 		register,
@@ -21,8 +23,8 @@ const Login = () => {
 
 	const formReq = async (data) => {
 		!signUpPage
-			? await user.userLogin(data.credential, data.password)
-			: await user.userRegister(data.credential, data.password, data.username);
+			? await userLogin(data.credential, data.password)
+			: await userRegister(data.credential, data.password, data.username);
 	};
 
 	return (
@@ -100,9 +102,9 @@ const Login = () => {
 								/>
 							)}
 
-							{user.error && <p className="lgn-error">{user.error}</p>}
+							{error && <p className="lgn-error">{error}</p>}
 
-							{user.loading ? (
+							{loading ? (
 								<button>{signUpPage ? 'Cadastrando...' : 'Entrando...'}</button>
 							) : (
 								<button>{signUpPage ? 'Cadastrar' : 'Entrar'}</button>

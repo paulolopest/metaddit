@@ -1,30 +1,37 @@
 import React from 'react';
 import './Header.scss';
-import { useLocation } from 'react-router-dom';
+import useMedia from './../../Hooks/useMedia';
+import HMenu from '../../Assets/icons/h-menu.svg';
 import lupaIcon from '../../Assets/icons/lupa.svg';
 import plusIcon from '../../Assets/icons/plus.svg';
+import ExitIcon from '../../Assets/icons/exit.svg';
+import LoginIcon from '../../Assets/icons/login.svg';
 import arrowIcon from '../../Assets/icons/arrow.svg';
+import ProfileIcon from '../../Assets/icons/profile.svg';
 import { UserContext } from '../../Contexts/UserContext';
 import popularIcon from '../../Assets/icons/popular.svg';
 import karmaIcon from '../../Assets/icons/karma-icon.svg';
 import siteIcon from '../../Assets/icons/metaddit-icon.svg';
 import whiteBanner from '../../Assets/imgs/metaddit_white.png';
 import blackBanner from '../../Assets/imgs/metaddit_black.png';
+import ExclamationIcon from '../../Assets/icons/exclamation.svg';
 import LoginModal from '../../Pages/Login/LoginModal/LoginModal';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import notificationIcon from '../../Assets/icons/notification.svg';
 import homeIcon from '../../Assets/icons/home-1391-svgrepo-com.svg';
-import ProfileIcon from '../../Assets/icons/profile.svg';
 import InterrogationIcon from '../../Assets/icons/interrogation.svg';
-import ExclamationIcon from '../../Assets/icons/exclamation.svg';
-import ExitIcon from '../../Assets/icons/exit.svg';
 
 const Header = () => {
 	const [loginModal, setLoginModal] = React.useState(false);
 	const [userPanel, setUserPanel] = React.useState(false);
 
-	const location = useLocation();
-
 	const { data, loading, login, userLogout, getProfile } = React.useContext(UserContext);
+
+	const location = useLocation();
+	const navigate = useNavigate();
+	const mediumScreen = useMedia('(max-width: 1025px)');
+	const smallScreen = useMedia('(max-width: 800px)');
+	const mobileScreen = useMedia('(max-width: 600px)');
 
 	const onClickOutside = (event) => {
 		if (loginModal || userPanel) {
@@ -67,9 +74,12 @@ const Header = () => {
 	return (
 		<>
 			<div className={location.pathname === '/login' ? 'displayNone' : 'hdr-ctr'}>
-				<div className="hrd-logo-ctr">
-					<img className="logo-icon" src={siteIcon} alt="site icon" />
-					<img className="logo-banner" src={blackBanner} alt="site banner" />
+				<div onClick={() => navigate('/')} className="hrd-logo-ctr">
+					{mediumScreen && <img className="hdr-hmenu" src={HMenu} alt="hamburguer icon" />}
+					<>
+						<img className="logo-icon" src={siteIcon} alt="site icon" />
+						{!smallScreen && <img className="logo-banner" src={blackBanner} alt="site banner" />}
+					</>
 				</div>
 
 				<div className={login ? 'hdr-userList' : 'displayNone'}>
@@ -81,43 +91,56 @@ const Header = () => {
 					<img src={arrowIcon} />
 				</div>
 
-				<div className="hdr-search">
-					<img src={lupaIcon} alt="Search icon" />
-					<input placeholder="Pesquisar no Metaddit" />
-				</div>
+				{!mobileScreen ? (
+					<>
+						<div className="hdr-search">
+							<img src={lupaIcon} alt="Search icon" />
+							<input placeholder="Pesquisar no Metaddit" />
+						</div>
 
-				<div className={login ? 'hdr-nav' : 'displayNone'}>
-					<div>
-						<img src={popularIcon} alt="popular icon" />
-					</div>
-					<div>
-						<img src={notificationIcon} alt="Notification icon" />
-					</div>
-					<div>
-						<img src={plusIcon} alt="Add post icon" />
-					</div>
-				</div>
-
-				{login ? (
-					<div onClick={() => setUserPanel(!userPanel)} className="hdr-profile">
-						<>
-							<div className="hdr-profile-pic">
-								<h1 />
-								<div>
-									<p>{data?.username}</p>
-									<div>
-										<img src={karmaIcon} />
-										<p>{data?.karma} Karma</p>
-									</div>
-								</div>
+						<div className={login ? 'hdr-nav' : 'displayNone'}>
+							<div>
+								<img src={popularIcon} alt="popular icon" />
 							</div>
-							<img style={{ rotate: '90deg' }} src={arrowIcon} />
-						</>
-					</div>
+							<div>
+								<img src={notificationIcon} alt="Notification icon" />
+							</div>
+							<div>
+								<img src={plusIcon} alt="Add post icon" />
+							</div>
+						</div>
+
+						{login ? (
+							<div onClick={() => setUserPanel(!userPanel)} className="hdr-profile">
+								<>
+									<div className="hdr-profile-pic">
+										<h1 />
+										<div>
+											<p>{data?.username}</p>
+											<div>
+												<img src={karmaIcon} />
+												<p>{data?.karma} Karma</p>
+											</div>
+										</div>
+									</div>
+									<img style={{ rotate: '90deg' }} src={arrowIcon} />
+								</>
+							</div>
+						) : (
+							<button onClick={() => setLoginModal(!loginModal)} className="hdr-loginButton">
+								Entrar
+							</button>
+						)}
+					</>
 				) : (
-					<button onClick={() => setLoginModal(!loginModal)} className="hdr-loginButton">
-						Entrar
-					</button>
+					<>
+						<div className="hdr-mbl-user-interaction">
+							<img src={lupaIcon} alt="lupa icon" />
+							<Link to={'/login'}>
+								<img src={LoginIcon} alt="dot menu icon" />
+							</Link>
+						</div>
+					</>
 				)}
 			</div>
 
@@ -130,13 +153,11 @@ const Header = () => {
 						</div>
 
 						<div className="upc-list">
-							<p>Perfil</p>
+							<Link to={'/profile'}>Perfil</Link>
 
-							<p>Configurações</p>
+							<Link to={'/settings'}>Configurações</Link>
 
-							<div>
-								<p>Modo escuro</p>
-							</div>
+							<a>Modo escuro</a>
 						</div>
 					</div>
 

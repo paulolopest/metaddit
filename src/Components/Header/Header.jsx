@@ -1,29 +1,31 @@
 import React from 'react';
 import './Header.scss';
 import useMedia from './../../Hooks/useMedia';
-import HMenu from '../../Assets/icons/h-menu.svg';
-import lupaIcon from '../../Assets/icons/lupa.svg';
-import plusIcon from '../../Assets/icons/plus.svg';
-import ExitIcon from '../../Assets/icons/exit.svg';
-import LoginIcon from '../../Assets/icons/login.svg';
-import arrowIcon from '../../Assets/icons/arrow.svg';
-import ProfileIcon from '../../Assets/icons/profile.svg';
+import HMenu from './../../Assets/icons/HMenu';
+import HdrLeftBar from './components/HdrLeftBar';
+import Chevron from '../../Assets/icons/Chevron';
+import PlusIcon from '../../Assets/icons/PlusIcon';
+import ExitIcon from '../../Assets/icons/ExitIcon';
+import LoginIcon from '../../Assets/icons/LoginIcon';
+import LupaIcon from './../../Assets/icons/LupaIcon';
+import SiteIcon from './../../Assets/icons/SiteIcon';
+import HomeIcon from './../../Assets/icons/HomeIcon';
+import KarmaIcon from './../../Assets/icons/KarmaIcon';
+import ProfileIcon from '../../Assets/icons/ProfileIcon';
 import { UserContext } from '../../Contexts/UserContext';
-import popularIcon from '../../Assets/icons/popular.svg';
-import karmaIcon from '../../Assets/icons/karma-icon.svg';
-import siteIcon from '../../Assets/icons/metaddit-icon.svg';
+import PopularIcon from '../../Assets/icons/PopularIcon';
 import whiteBanner from '../../Assets/imgs/metaddit_white.png';
 import blackBanner from '../../Assets/imgs/metaddit_black.png';
-import ExclamationIcon from '../../Assets/icons/exclamation.svg';
 import LoginModal from '../../Pages/Login/LoginModal/LoginModal';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import notificationIcon from '../../Assets/icons/notification.svg';
-import homeIcon from '../../Assets/icons/home-1391-svgrepo-com.svg';
-import InterrogationIcon from '../../Assets/icons/interrogation.svg';
+import ExclamationIcon from './../../Assets/icons/ExclamationIcon';
+import NotificationIcon from '../../Assets/icons/NotificationIcon';
+import InterrogationIcon from './../../Assets/icons/InterrogationIcon';
 
 const Header = () => {
 	const [loginModal, setLoginModal] = React.useState(false);
 	const [userPanel, setUserPanel] = React.useState(false);
+	const [leftBar, setLeftBar] = React.useState(false);
 
 	const { data, loading, login, userLogout, getProfile } = React.useContext(UserContext);
 
@@ -34,10 +36,11 @@ const Header = () => {
 	const mobileScreen = useMedia('(max-width: 600px)');
 
 	const onClickOutside = (event) => {
-		if (loginModal || userPanel) {
+		if (loginModal || userPanel || leftBar) {
 			if (event.target === event.currentTarget) {
 				setLoginModal(false);
 				setUserPanel(false);
+				setLeftBar(false);
 			}
 		}
 	};
@@ -75,38 +78,38 @@ const Header = () => {
 		<>
 			<div className={location.pathname === '/login' ? 'displayNone' : 'hdr-ctr'}>
 				<div onClick={() => navigate('/')} className="hrd-logo-ctr">
-					{mediumScreen && <img className="hdr-hmenu" src={HMenu} alt="hamburguer icon" />}
-					<>
-						<img className="logo-icon" src={siteIcon} alt="site icon" />
+					{mediumScreen && <HMenu onClick={() => setLeftBar(!leftBar)} />}
+					<div className="hdr-siteIcons">
+						<SiteIcon />
 						{!smallScreen && <img className="logo-banner" src={blackBanner} alt="site banner" />}
-					</>
+					</div>
 				</div>
 
 				<div className={login ? 'hdr-userList' : 'displayNone'}>
 					<div>
-						<img src={homeIcon} alt="home icon" />
+						<HomeIcon />
 						<p>Página inicial</p>
 					</div>
 
-					<img src={arrowIcon} />
+					<Chevron rotate={90} />
 				</div>
 
 				{!mobileScreen ? (
 					<>
 						<div className="hdr-search">
-							<img src={lupaIcon} alt="Search icon" />
+							<LupaIcon stroke={'#a1a1a1'} />
 							<input placeholder="Pesquisar no Metaddit" />
 						</div>
 
 						<div className={login ? 'hdr-nav' : 'displayNone'}>
 							<div>
-								<img src={popularIcon} alt="popular icon" />
+								<PopularIcon />
 							</div>
 							<div>
-								<img src={notificationIcon} alt="Notification icon" />
+								<NotificationIcon />
 							</div>
 							<div>
-								<img src={plusIcon} alt="Add post icon" />
+								<PlusIcon />
 							</div>
 						</div>
 
@@ -118,12 +121,12 @@ const Header = () => {
 										<div>
 											<p>{data?.username}</p>
 											<div>
-												<img src={karmaIcon} />
+												<KarmaIcon />
 												<p>{data?.karma} Karma</p>
 											</div>
 										</div>
 									</div>
-									<img style={{ rotate: '90deg' }} src={arrowIcon} />
+									<Chevron rotate={90} />
 								</>
 							</div>
 						) : (
@@ -135,9 +138,10 @@ const Header = () => {
 				) : (
 					<>
 						<div className="hdr-mbl-user-interaction">
-							<img src={lupaIcon} alt="lupa icon" />
+							<LupaIcon />
+
 							<Link to={'/login'}>
-								<img src={LoginIcon} alt="dot menu icon" />
+								<LoginIcon />
 							</Link>
 						</div>
 					</>
@@ -148,7 +152,7 @@ const Header = () => {
 				<div className="user-pnl-ctr animeDown">
 					<div className="user-pnl-config">
 						<div className="upc-hdr">
-							<img src={ProfileIcon} alt="profile icon" />
+							<ProfileIcon />
 							<p>As minhas coisas</p>
 						</div>
 
@@ -163,27 +167,28 @@ const Header = () => {
 
 					<div className="user-pnl-extras">
 						<div>
-							<img src={plusIcon} alt="add post icon" />
+							<PlusIcon />
 							<p>Criar uma comunidade</p>
 						</div>
 						<div>
-							<img src={InterrogationIcon} alt="faq icon" />
+							<InterrogationIcon />
 							<p>Centro de ajuda</p>
 						</div>
 						<div>
-							<img src={ExclamationIcon} alt="politics and terms icon" />
+							<ExclamationIcon />
 							<p>Termos e Políticas</p>
 						</div>
 					</div>
 
 					<div onClick={userLogout} className="up-exit">
-						<img src={ExitIcon} alt="exit icon" />
+						<ExitIcon />
 						<p>Terminar sessão</p>
 					</div>
 				</div>
 			)}
 
 			{loginModal && <LoginModal onClickOutside={onClickOutside} setLoginModal={setLoginModal} />}
+			{leftBar && <HdrLeftBar onClickOutside={onClickOutside} />}
 		</>
 	);
 };

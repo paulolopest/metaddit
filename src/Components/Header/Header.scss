@@ -9,17 +9,36 @@
 	justify-content: space-between;
 	position: relative;
 
+	svg {
+		width: 1rem;
+		height: 1rem;
+	}
+
 	.hrd-logo-ctr {
 		display: flex;
 		align-items: center;
-		gap: 0 0.3rem;
+		gap: 0 1rem;
 
-		.logo-icon {
+		svg {
+			width: 1.2rem;
+			height: 1.2rem;
 		}
-		.logo-banner {
-			width: 6rem;
-			height: 1.5rem;
-			cursor: pointer;
+
+		.hdr-siteIcons {
+			display: flex;
+			align-items: center;
+			gap: 0 0.3rem;
+
+			svg {
+				width: 2rem;
+				height: 2rem;
+			}
+
+			.logo-banner {
+				width: 6rem;
+				height: 1.5rem;
+				cursor: pointer;
+			}
 		}
 	}
 
@@ -39,17 +58,10 @@
 			align-items: center;
 			gap: 0 0.5rem;
 
-			img {
-				width: $iconWidth;
-				height: $iconHeight;
-				rotate: 360deg;
+			svg {
+				width: 1rem;
+				height: 1rem;
 			}
-		}
-
-		img {
-			width: 12px;
-			height: 12px;
-			rotate: 90deg;
 		}
 
 		&:hover {
@@ -62,7 +74,7 @@
 		width: 45%;
 		height: 2.5rem;
 
-		img {
+		svg {
 			position: absolute;
 			width: $iconWidth;
 			height: $iconHeight;
@@ -94,7 +106,7 @@
 
 	.hdr-nav {
 		display: flex;
-		width: 7rem;
+		width: 8rem;
 		height: 2.5rem;
 		align-items: center;
 		justify-content: space-between;
@@ -108,7 +120,7 @@
 			cursor: pointer;
 			transition: ease-in-out 0.1s;
 
-			img {
+			svg {
 				width: 1.5rem;
 				height: 1.5rem;
 			}
@@ -155,7 +167,7 @@
 					align-items: flex-end;
 					gap: 0 0.1rem;
 
-					img {
+					svg {
 						width: 0.9rem;
 						height: 0.9rem;
 						user-select: none;
@@ -175,7 +187,7 @@
 			}
 		}
 
-		img {
+		svg {
 			width: 0.8rem;
 			height: 0.8rem;
 			user-select: none;
@@ -204,7 +216,7 @@
 	display: flex;
 	gap: 0 1.2rem;
 
-	img {
+	svg {
 		width: 1.3rem;
 		height: 1.3rem;
 	}
@@ -218,8 +230,9 @@
 	top: 3.5rem;
 	user-select: none;
 	border-radius: 3px;
+	box-shadow: 0px 0px 10px 0.5px #c1c1c1;
 
-	img {
+	svg {
 		width: 1.5rem;
 		height: 1.5rem;
 	}
@@ -229,7 +242,6 @@
 		flex-direction: column;
 		padding: 1rem 1rem 0rem 1rem;
 		border-bottom: 1px solid #e1e1e1;
-		gap: 0.7rem 0;
 
 		.upc-hdr {
 			display: flex;
@@ -264,7 +276,7 @@
 		padding: 1rem;
 		border-bottom: 1px solid #e1e1e1;
 
-		img {
+		svg {
 			width: 1rem;
 			height: 1rem;
 		}
@@ -292,13 +304,24 @@
 		transition: 0.2s ease-in-out;
 		cursor: pointer;
 
-		img {
-			width: 1.2rem;
-			height: 1.2rem;
+		svg {
+			width: 1.5rem;
+			height: 1.5rem;
 		}
 
 		&:hover {
 			background-color: #f1f1f1;
+		}
+	}
+}
+
+@media (max-width: 1200px) {
+	.hdr-ctr {
+		.hdr-nav {
+			width: 6rem;
+		}
+		.hdr-search {
+			width: 40%;
 		}
 	}
 }

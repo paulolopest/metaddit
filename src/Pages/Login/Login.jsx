@@ -1,11 +1,12 @@
 import React from 'react';
 import './Login.scss';
 import { useForm } from 'react-hook-form';
-import appleIcon from '../../Assets/icons/apple.svg';
-import googleIcon from '../../Assets/icons/google.svg';
+
 import { UserContext } from './../../Contexts/UserContext';
 import loginBanner from '../../Assets/imgs/login-banner.png';
 import CustomInput from '../../Components/CustomForm/CustomInput/CustomInput';
+import GoogleIcon from './../../Assets/icons/GoogleIcon';
+import AppleIcon from './../../Assets/icons/AppleIcon';
 
 const Login = () => {
 	const [signUpPage, setSignUpPage] = React.useState(false);
@@ -44,13 +45,13 @@ const Login = () => {
 					<div className="lgn-c-header">
 						<div>
 							<button>
-								<img src={googleIcon} />
+								<GoogleIcon />
 								Continuar com o Google
 								<span />
 							</button>
 
 							<button>
-								<img src={appleIcon} />
+								<AppleIcon />
 								Continuar com a Apple
 								<span />
 							</button>

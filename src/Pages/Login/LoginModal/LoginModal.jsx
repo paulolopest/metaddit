@@ -1,10 +1,10 @@
 import React from 'react';
 import './LoginModal.scss';
 import { useForm } from 'react-hook-form';
-import appleIcon from '../../../Assets/icons/apple.svg';
-import googleIcon from '../../../Assets/icons/google.svg';
 import { UserContext } from '../../../Contexts/UserContext';
 import CustomInput from './../../../Components/CustomForm/CustomInput/CustomInput';
+import GoogleIcon from '../../../Assets/icons/GoogleIcon';
+import AppleIcon from './../../../Assets/icons/AppleIcon';
 
 const LoginModal = ({ setLoginModal, onClickOutside }) => {
 	const [signUpModal, setSignUpModal] = React.useState(false);
@@ -45,13 +45,13 @@ const LoginModal = ({ setLoginModal, onClickOutside }) => {
 					<div className="lgn-md-c-header">
 						<div>
 							<button>
-								<img src={googleIcon} />
+								<GoogleIcon />
 								Continuar com o Google
 								<span />
 							</button>
 
 							<button>
-								<img src={appleIcon} />
+								<AppleIcon />
 								Continuar com a Apple
 								<span />
 							</button>

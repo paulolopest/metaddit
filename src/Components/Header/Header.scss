@@ -20,8 +20,8 @@
 		gap: 0 1rem;
 
 		svg {
-			width: 1.2rem;
-			height: 1.2rem;
+			width: 1.3rem;
+			height: 1.3rem;
 		}
 
 		.hdr-siteIcons {
@@ -71,7 +71,7 @@
 
 	.hdr-search {
 		position: relative;
-		width: 45%;
+		width: 55%;
 		height: 2.5rem;
 
 		svg {
@@ -106,7 +106,7 @@
 
 	.hdr-nav {
 		display: flex;
-		width: 8rem;
+		min-width: auto;
 		height: 2.5rem;
 		align-items: center;
 		justify-content: space-between;
@@ -137,11 +137,13 @@
 		justify-content: space-between;
 		align-items: center;
 		height: 2.5rem;
-		width: 14rem;
+		max-width: 14rem;
+		min-width: 5rem;
 		padding: 0 0.5rem;
 		border: 1px solid transparent;
 		cursor: pointer;
 		position: relative;
+		gap: 0 1.5rem;
 
 		.hdr-profile-pic {
 			display: flex;
@@ -214,6 +216,7 @@
 
 .hdr-mbl-user-interaction {
 	display: flex;
+	align-items: center;
 	gap: 0 1.2rem;
 
 	svg {
@@ -315,18 +318,40 @@
 	}
 }
 
-@media (max-width: 1200px) {
+.mbl-pfl-pic {
+	background-color: red;
+	width: 2.3rem;
+	height: 2.3rem;
+	border-radius: 50%;
+}
+
+@media (max-width: 1600px) {
 	.hdr-ctr {
-		.hdr-nav {
-			width: 6rem;
-		}
 		.hdr-search {
-			width: 40%;
+			width: 50%;
+		}
+	}
+}
+@media (max-width: 1450px) {
+	.hdr-ctr {
+		.hdr-search {
+			width: 45%;
 		}
 	}
 }
 
-@media (max-width: 1025px) {
+@media (max-width: 1200px) {
+	.hdr-ctr {
+		.hdr-nav {
+			width: 7rem;
+		}
+		.hdr-search {
+			width: 35%;
+		}
+	}
+}
+
+@media (max-width: 1050px) {
 	.hdr-ctr {
 		padding: 0 0.7rem;
 
@@ -339,14 +364,14 @@
 		}
 
 		.hdr-search {
-			width: 65%;
+			width: 60%;
 		}
 	}
 }
 @media (max-width: 850px) {
 	.hdr-ctr {
 		.hdr-search {
-			width: 60%;
+			width: 50%;
 		}
 	}
 }
@@ -355,13 +380,22 @@
 	.hdr-ctr {
 		padding: 0 1rem;
 		.hdr-search {
-			width: 75%;
+			width: 65%;
+		}
+	}
+}
+@media (max-width: 800px) {
+	.hdr-ctr {
+		.hdr-search {
+			width: 60%;
 		}
 	}
 }
 
 @media (max-width: 600px) {
 	.hdr-ctr {
+		padding: 0 0.7rem;
+
 		.hrd-logo-ctr {
 			.logo-icon {
 				width: 1.5rem;
@@ -369,6 +403,10 @@
 			}
 			.hdr-hmenu {
 				margin-right: 0.5rem;
+			}
+
+			.hdr-nav {
+				background-color: red;
 			}
 		}
 	}

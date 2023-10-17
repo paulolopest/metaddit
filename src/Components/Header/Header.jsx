@@ -31,7 +31,7 @@ const Header = () => {
 
 	const location = useLocation();
 	const navigate = useNavigate();
-	const mediumScreen = useMedia('(max-width: 1025px)');
+	const mediumScreen = useMedia('(max-width: 1050px)');
 	const smallScreen = useMedia('(max-width: 800px)');
 	const mobileScreen = useMedia('(max-width: 600px)');
 
@@ -81,18 +81,20 @@ const Header = () => {
 					{mediumScreen && <HMenu onClick={() => setLeftBar(!leftBar)} />}
 					<div className="hdr-siteIcons">
 						<SiteIcon />
-						{!smallScreen && <img className="logo-banner" src={blackBanner} alt="site banner" />}
+						{!mediumScreen && <img className="logo-banner" src={blackBanner} alt="site banner" />}
 					</div>
 				</div>
 
-				<div className={login ? 'hdr-userList' : 'displayNone'}>
-					<div>
-						<HomeIcon />
-						<p>Página inicial</p>
-					</div>
+				{!mediumScreen && (
+					<div className={login ? 'hdr-userList' : 'displayNone'}>
+						<div>
+							<HomeIcon />
+							<p>Página inicial</p>
+						</div>
 
-					<Chevron rotate={90} />
-				</div>
+						<Chevron rotate={90} />
+					</div>
+				)}
 
 				{!mobileScreen ? (
 					<>
@@ -101,33 +103,35 @@ const Header = () => {
 							<input placeholder="Pesquisar no Metaddit" />
 						</div>
 
-						<div className={login ? 'hdr-nav' : 'displayNone'}>
-							<div>
-								<PopularIcon />
+						{!smallScreen && (
+							<div className={login ? 'hdr-nav' : 'displayNone'}>
+								<div>
+									<PopularIcon />
+								</div>
+								<div>
+									<NotificationIcon />
+								</div>
+								<div>
+									<PlusIcon />
+								</div>
 							</div>
-							<div>
-								<NotificationIcon />
-							</div>
-							<div>
-								<PlusIcon />
-							</div>
-						</div>
+						)}
 
 						{login ? (
 							<div onClick={() => setUserPanel(!userPanel)} className="hdr-profile">
-								<>
-									<div className="hdr-profile-pic">
-										<h1 />
+								<div className="hdr-profile-pic">
+									{/* esse h1 embaixo é a foto de perfil */}
+									<h1 />
+
+									<div>
+										<p>{data?.username}</p>
 										<div>
-											<p>{data?.username}</p>
-											<div>
-												<KarmaIcon />
-												<p>{data?.karma} Karma</p>
-											</div>
+											<KarmaIcon />
+											<p>{data?.karma} Karma</p>
 										</div>
 									</div>
-									<Chevron rotate={90} />
-								</>
+								</div>
+								<Chevron rotate={90} />
 							</div>
 						) : (
 							<button onClick={() => setLoginModal(!loginModal)} className="hdr-loginButton">
@@ -140,9 +144,16 @@ const Header = () => {
 						<div className="hdr-mbl-user-interaction">
 							<LupaIcon />
 
-							<Link to={'/login'}>
-								<LoginIcon />
-							</Link>
+							{login ? (
+								<div onClick={() => setUserPanel(!userPanel)} className="mbl-pfl-pic">
+									{/* esse h1 embaixo é a foto de perfil */}
+									<h1 />
+								</div>
+							) : (
+								<Link to={'/login'}>
+									<LoginIcon />
+								</Link>
+							)}
 						</div>
 					</>
 				)}

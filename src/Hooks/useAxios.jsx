@@ -28,9 +28,7 @@ const useAxios = () => {
 			setError(null);
 			setLoading(true);
 
-			let res = await axios.post(url, body, config);
-
-			setData(res.data);
+			await axios.post(url, body, config);
 		} catch (err) {
 			setData(null);
 			setError(err.response.data);

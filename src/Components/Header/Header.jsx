@@ -3,29 +3,30 @@ import './Header.scss';
 import useMedia from './../../Hooks/useMedia';
 import HMenu from './../../Assets/icons/HMenu';
 import HdrLeftBar from './components/HdrLeftBar';
-import Chevron from '../../Assets/icons/Chevron';
 import PlusIcon from '../../Assets/icons/PlusIcon';
 import ExitIcon from '../../Assets/icons/ExitIcon';
 import LoginIcon from '../../Assets/icons/LoginIcon';
 import LupaIcon from './../../Assets/icons/LupaIcon';
 import SiteIcon from './../../Assets/icons/SiteIcon';
-import HomeIcon from './../../Assets/icons/HomeIcon';
 import KarmaIcon from './../../Assets/icons/KarmaIcon';
 import ProfileIcon from '../../Assets/icons/ProfileIcon';
 import { UserContext } from '../../Contexts/UserContext';
-import PopularIcon from '../../Assets/icons/PopularIcon';
 import whiteBanner from '../../Assets/imgs/metaddit_white.png';
 import blackBanner from '../../Assets/imgs/metaddit_black.png';
 import LoginModal from '../../Pages/Login/LoginModal/LoginModal';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import ExclamationIcon from './../../Assets/icons/ExclamationIcon';
-import NotificationIcon from '../../Assets/icons/NotificationIcon';
 import InterrogationIcon from './../../Assets/icons/InterrogationIcon';
+import HdrSearchModal from './components/HdrSearchModal';
+import * as Icon from '@phosphor-icons/react';
+import AddCmtModal from './components/AddCmtModal';
 
 const Header = () => {
 	const [loginModal, setLoginModal] = React.useState(false);
+	const [addCmtModal, setAddCmtModal] = React.useState(false);
 	const [userPanel, setUserPanel] = React.useState(false);
 	const [leftBar, setLeftBar] = React.useState(false);
+	const [searchModal, setSearchModal] = React.useState(false);
 
 	const { data, loading, login, userLogout, getProfile } = React.useContext(UserContext);
 
@@ -41,6 +42,7 @@ const Header = () => {
 				setLoginModal(false);
 				setUserPanel(false);
 				setLeftBar(false);
+				setAddCmtModal(false);
 			}
 		}
 	};
@@ -49,7 +51,16 @@ const Header = () => {
 		if (event.keyCode === 27) {
 			setUserPanel(false);
 			setLoginModal(false);
+			setSearchModal(false);
 		}
+	};
+
+	const openAddCmt = () => {
+		setLoginModal(false);
+		setUserPanel(false);
+		setLeftBar(false);
+		setSearchModal(false);
+		setAddCmtModal(true);
 	};
 
 	React.useEffect(() => {
@@ -88,31 +99,38 @@ const Header = () => {
 				{!mediumScreen && (
 					<div className={login ? 'hdr-userList' : 'displayNone'}>
 						<div>
-							<HomeIcon />
+							<Icon.House weight="fill" />
 							<p>Página inicial</p>
 						</div>
 
-						<Chevron rotate={90} />
+						<Icon.CaretDown />
 					</div>
 				)}
 
 				{!mobileScreen ? (
 					<>
-						<div className="hdr-search">
-							<LupaIcon stroke={'#a1a1a1'} />
-							<input placeholder="Pesquisar no Metaddit" />
+						<div
+							onClick={() => setSearchModal(true)}
+							className={`hdr-search ${searchModal && 'n-border'}`}
+						>
+							<Icon.MagnifyingGlass color={searchModal ? '#0079d3' : '#a1a1a1'} />
+							<input onBlur={() => setSearchModal(false)} placeholder="Pesquisar no Metaddit" />
+
+							{searchModal && (
+								<HdrSearchModal searchModal={searchModal} setSearchModal={setSearchModal} />
+							)}
 						</div>
 
 						{!smallScreen && (
 							<div className={login ? 'hdr-nav' : 'displayNone'}>
 								<div>
-									<PopularIcon />
+									<Icon.TrendUp weight="light" />
 								</div>
 								<div>
-									<NotificationIcon />
+									<Icon.Bell weight="light" />
 								</div>
 								<div>
-									<PlusIcon />
+									<Icon.Plus weight="light" />
 								</div>
 							</div>
 						)}
@@ -131,7 +149,7 @@ const Header = () => {
 										</div>
 									</div>
 								</div>
-								<Chevron rotate={90} />
+								<Icon.CaretDown style={{ rotate: `${userPanel ? '360deg' : '180deg'}` }} />
 							</div>
 						) : (
 							<button onClick={() => setLoginModal(!loginModal)} className="hdr-loginButton">
@@ -142,8 +160,10 @@ const Header = () => {
 				) : (
 					<>
 						<div className="hdr-mbl-user-interaction">
-							<LupaIcon />
-
+							<div className="hdr-mbl-search">
+								<LupaIcon />
+								<input />
+							</div>
 							{login ? (
 								<div onClick={() => setUserPanel(!userPanel)} className="mbl-pfl-pic">
 									{/* esse h1 embaixo é a foto de perfil */}
@@ -177,7 +197,7 @@ const Header = () => {
 					</div>
 
 					<div className="user-pnl-extras">
-						<div>
+						<div onClick={openAddCmt}>
 							<PlusIcon />
 							<p>Criar uma comunidade</p>
 						</div>
@@ -199,6 +219,7 @@ const Header = () => {
 			)}
 
 			{loginModal && <LoginModal onClickOutside={onClickOutside} setLoginModal={setLoginModal} />}
+			{addCmtModal && <AddCmtModal />}
 			{leftBar && <HdrLeftBar onClickOutside={onClickOutside} />}
 		</>
 	);

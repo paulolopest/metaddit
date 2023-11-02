@@ -44,6 +44,7 @@
 
 	.hdr-userList {
 		display: flex;
+		position: relative;
 		align-items: center;
 		padding: 0 0.5rem;
 		width: 15rem;
@@ -52,8 +53,9 @@
 		height: 2.2rem;
 		border-radius: 3px;
 		border: 1px solid transparent;
+		background-color: transparent;
 
-		div {
+		.hdr-ul-ctr {
 			display: flex;
 			align-items: center;
 			gap: 0 0.5rem;
@@ -66,6 +68,9 @@
 
 		&:hover {
 			border: 1px solid #f1f1f1;
+		}
+		&:focus {
+			border: 1px solid red;
 		}
 	}
 

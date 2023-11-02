@@ -1,19 +1,21 @@
 import React from 'react';
 import './AddCmtModal.scss';
 import * as Icon from '@phosphor-icons/react';
-import CustomInput from '../../CustomForm/CustomInput/CustomInput';
-import { useForm } from 'react-hook-form';
-import { CommunityRequest } from '../../../Requests/CommunityRequest';
-import useAxios from './../../../Hooks/useAxios';
+import useAxios from '../../../../Hooks/useAxios';
+import useUtils from '../../../../Hooks/useUtils';
+import { GlobalContext } from '../../../../Contexts/GlobalContext';
+import { CommunityRequest } from '../../../../Requests/CommunityRequest';
 
-const AddCmtModal = ({ onClickOutside }) => {
+const AddCmtModal = () => {
 	const [cmtType, setCmtType] = React.useState('Public');
 	const [nsfw, setNsfw] = React.useState(false);
 	const [cmtName, setCmtName] = React.useState('');
 
-	const { post } = useAxios();
-
 	const communityRequest = new CommunityRequest();
+
+	const { post } = useAxios();
+	const { closeModal, useCloseEsc } = useUtils();
+	const { addCmtModal, setAddCmtModal } = React.useContext(GlobalContext);
 
 	const onChangeCheckbox = ({ target }) => {
 		setCmtType(target.value);
@@ -45,13 +47,20 @@ const AddCmtModal = ({ onClickOutside }) => {
 		await post(url, body, { headers });
 	};
 
+	useCloseEsc(setAddCmtModal);
+
 	return (
-		<div className="acm-backScreen">
-			<div className="acm-modal">
+		<div
+			onClick={(e) => {
+				closeModal(e, addCmtModal, setAddCmtModal);
+			}}
+			className="acm-backScreen "
+		>
+			<div className="acm-modal animeFadeIn">
 				<div className="cm-hdr">
 					<p>Criar uma comunidade</p>
 
-					<Icon.X weight="bold" size={'22px'} />
+					<Icon.X onClick={() => setAddCmtModal(false)} weight="bold" size={'22px'} />
 				</div>
 				<div className="cm-name">
 					<div>
@@ -97,7 +106,7 @@ const AddCmtModal = ({ onClickOutside }) => {
 					</div>
 				</div>
 				<div className="cm-footer">
-					<button>Cancelar</button>
+					<button onClick={() => setAddCmtModal(false)}>Cancelar</button>
 					<button onClick={onClickCreateCmt}>Criar comunidade</button>
 				</div>
 			</div>

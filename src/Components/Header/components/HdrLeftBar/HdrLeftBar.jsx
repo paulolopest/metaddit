@@ -1,31 +1,32 @@
 import React from 'react';
 import './HdrLeftBar.scss';
 import { Link } from 'react-router-dom';
-import TvIcon from '../../../Assets/icons/TvIcon';
-import Chevron from '../../../Assets/icons/Chevron';
-import DogIcon from '../../../Assets/icons/DogIcon';
-import GamesIcon from '../../../Assets/icons/GamesIcon';
-import SportIcon from '../../../Assets/icons/SportIcon';
-import StarIcon from './../../../Assets/icons/StarIcon';
-import StockIcon from './../../../Assets/icons/StockIcon';
-import PopularIcon from '../../../Assets/icons/PopularIcon';
+import * as Icon from '@phosphor-icons/react';
+import useUtils from '../../../../Hooks/useUtils';
+import { GlobalContext } from '../../../../Contexts/GlobalContext';
 
-const HdrLeftBar = ({ onClickOutside }) => {
+const HdrLeftBar = () => {
 	const [chevronRotate, setChevronRotate] = React.useState(90);
 	const [subjectSection, setSubjectSection] = React.useState(true);
 
+	const { leftBar, setLeftBar } = React.useContext(GlobalContext);
+
+	const { closeModal, useCloseEsc } = useUtils();
+
+	useCloseEsc(setLeftBar);
+
 	return (
-		<div onClick={onClickOutside} className="hdr-lftbar-ctr">
+		<div onClick={(e) => closeModal(e, leftBar, setLeftBar)} className="hdr-lftbar-ctr">
 			<div className="hdr-left-bar animeRight">
 				<div className="lftbr-recent">
-					<PopularIcon />
+					<Icon.TrendUp />
 					<Link>Popular</Link>
 				</div>
 
 				<div className="subject-ctr">
 					<div className="sbj-hdr" onClick={() => setSubjectSection(!subjectSection)}>
 						<p>Assuntos</p>
-						<Chevron rotate={subjectSection ? 90 : 270} />
+						<Icon.CaretDown rotate={subjectSection ? 90 : 270} />
 					</div>
 
 					{/* 
@@ -38,51 +39,51 @@ const HdrLeftBar = ({ onClickOutside }) => {
 						<div className="lft-br-topics animeDown">
 							<div>
 								<div className="tpcCard">
-									<GamesIcon />
+									<Icon.GameController />
 									Jogos
 								</div>
 
-								<Chevron rotate={chevronRotate} />
+								<Icon.CaretDown rotate={chevronRotate} />
 							</div>
 							<div>
 								<div className="tpcCard">
-									<StockIcon />
+									<Icon.ChartLine />
 									Negócios
 								</div>
 
-								<Chevron rotate={chevronRotate} />
+								<Icon.CaretDown rotate={chevronRotate} />
 							</div>
 							<div>
 								<div className="tpcCard">
-									<DogIcon />
+									<Icon.Dog />
 									Animais
 								</div>
 
-								<Chevron rotate={chevronRotate} />
+								<Icon.CaretDown rotate={chevronRotate} />
 							</div>
 							<div>
 								<div className="tpcCard">
-									<SportIcon />
+									<Icon.DribbbleLogo />
 									Esportes
 								</div>
 
-								<Chevron rotate={chevronRotate} />
+								<Icon.CaretDown rotate={chevronRotate} />
 							</div>
 							<div>
 								<div className="tpcCard">
-									<TvIcon />
+									<Icon.Monitor />
 									Televisão
 								</div>
 
-								<Chevron rotate={chevronRotate} />
+								<Icon.CaretDown rotate={chevronRotate} />
 							</div>
 							<div>
 								<div className="tpcCard">
-									<StarIcon />
+									<Icon.Sparkle />
 									Celebridades
 								</div>
 
-								<Chevron rotate={chevronRotate} />
+								<Icon.CaretDown rotate={chevronRotate} />
 							</div>
 						</div>
 					)}

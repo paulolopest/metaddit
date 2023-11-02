@@ -1,83 +1,33 @@
-import React from 'react';
 import './Header.scss';
-import useMedia from './../../Hooks/useMedia';
-import HMenu from './../../Assets/icons/HMenu';
-import HdrLeftBar from './components/HdrLeftBar';
-import PlusIcon from '../../Assets/icons/PlusIcon';
-import ExitIcon from '../../Assets/icons/ExitIcon';
-import LoginIcon from '../../Assets/icons/LoginIcon';
-import LupaIcon from './../../Assets/icons/LupaIcon';
+import React from 'react';
+import useUtils from '../../Hooks/useUtils';
+import * as Icon from '@phosphor-icons/react';
 import SiteIcon from './../../Assets/icons/SiteIcon';
 import KarmaIcon from './../../Assets/icons/KarmaIcon';
-import ProfileIcon from '../../Assets/icons/ProfileIcon';
 import { UserContext } from '../../Contexts/UserContext';
+import UserPanel from './components/UserPanel/UserPanel';
+import { GlobalContext } from '../../Contexts/GlobalContext';
 import whiteBanner from '../../Assets/imgs/metaddit_white.png';
 import blackBanner from '../../Assets/imgs/metaddit_black.png';
-import LoginModal from '../../Pages/Login/LoginModal/LoginModal';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import ExclamationIcon from './../../Assets/icons/ExclamationIcon';
-import InterrogationIcon from './../../Assets/icons/InterrogationIcon';
-import HdrSearchModal from './components/HdrSearchModal';
-import * as Icon from '@phosphor-icons/react';
-import AddCmtModal from './components/AddCmtModal';
+import HdrSearchModal from './components/HdrSearchModal/HdrSearchModal';
+import HdrNavList from './components/HdrNavList/HdrNavList';
 
 const Header = () => {
-	const [loginModal, setLoginModal] = React.useState(false);
-	const [addCmtModal, setAddCmtModal] = React.useState(false);
+	const [navList, setNavList] = React.useState(false);
 	const [userPanel, setUserPanel] = React.useState(false);
-	const [leftBar, setLeftBar] = React.useState(false);
 	const [searchModal, setSearchModal] = React.useState(false);
 
-	const { data, loading, login, userLogout, getProfile } = React.useContext(UserContext);
+	const { data, loading, login, getProfile } = React.useContext(UserContext);
+	const { leftBar, loginModal, setLeftBar, smallScreen, mediumScreen, mobileScreen, setLoginModal } =
+		React.useContext(GlobalContext);
 
 	const location = useLocation();
 	const navigate = useNavigate();
-	const mediumScreen = useMedia('(max-width: 1050px)');
-	const smallScreen = useMedia('(max-width: 800px)');
-	const mobileScreen = useMedia('(max-width: 600px)');
+	const { useCloseEsc } = useUtils();
 
-	const onClickOutside = (event) => {
-		if (loginModal || userPanel || leftBar) {
-			if (event.target === event.currentTarget) {
-				setLoginModal(false);
-				setUserPanel(false);
-				setLeftBar(false);
-				setAddCmtModal(false);
-			}
-		}
-	};
-
-	const handleEscPress = (event) => {
-		if (event.keyCode === 27) {
-			setUserPanel(false);
-			setLoginModal(false);
-			setSearchModal(false);
-		}
-	};
-
-	const openAddCmt = () => {
-		setLoginModal(false);
-		setUserPanel(false);
-		setLeftBar(false);
-		setSearchModal(false);
-		setAddCmtModal(true);
-	};
-
-	React.useEffect(() => {
-		window.addEventListener('keydown', handleEscPress);
-
-		return () => {
-			window.removeEventListener('keyDown', handleEscPress);
-		};
-	}, []);
-
-	React.useEffect(() => {
-		if (loginModal) {
-			document.body.classList.add('loading');
-		} else {
-			document.body.classList.remove('loading');
-		}
-	}, [loginModal]);
+	useCloseEsc(setUserPanel);
+	useCloseEsc(setSearchModal);
 
 	React.useEffect(() => {
 		if (login) getProfile();
@@ -89,7 +39,7 @@ const Header = () => {
 		<>
 			<div className={location.pathname === '/login' ? 'displayNone' : 'hdr-ctr'}>
 				<div onClick={() => navigate('/')} className="hrd-logo-ctr">
-					{mediumScreen && <HMenu onClick={() => setLeftBar(!leftBar)} />}
+					{mediumScreen && <Icon.List onClick={() => setLeftBar(!leftBar)} />}
 					<div className="hdr-siteIcons">
 						<SiteIcon />
 						{!mediumScreen && <img className="logo-banner" src={blackBanner} alt="site banner" />}
@@ -97,14 +47,20 @@ const Header = () => {
 				</div>
 
 				{!mediumScreen && (
-					<div className={login ? 'hdr-userList' : 'displayNone'}>
-						<div>
+					<button
+						onClick={() => setNavList(!navList)}
+						// onBlur={() => setNavList(false)}
+						className={login ? 'hdr-userList' : 'displayNone'}
+					>
+						<div className="hdr-ul-ctr">
 							<Icon.House weight="fill" />
 							<p>Página inicial</p>
 						</div>
 
 						<Icon.CaretDown />
-					</div>
+
+						{navList && <HdrNavList />}
+					</button>
 				)}
 
 				{!mobileScreen ? (
@@ -161,7 +117,7 @@ const Header = () => {
 					<>
 						<div className="hdr-mbl-user-interaction">
 							<div className="hdr-mbl-search">
-								<LupaIcon />
+								<Icon.MagnifyingGlass />
 								<input />
 							</div>
 							{login ? (
@@ -171,7 +127,7 @@ const Header = () => {
 								</div>
 							) : (
 								<Link to={'/login'}>
-									<LoginIcon />
+									<Icon.SignIn />
 								</Link>
 							)}
 						</div>
@@ -179,48 +135,7 @@ const Header = () => {
 				)}
 			</div>
 
-			{userPanel && (
-				<div className="user-pnl-ctr animeDown">
-					<div className="user-pnl-config">
-						<div className="upc-hdr">
-							<ProfileIcon />
-							<p>As minhas coisas</p>
-						</div>
-
-						<div className="upc-list">
-							<Link to={'/profile'}>Perfil</Link>
-
-							<Link to={'/settings'}>Configurações</Link>
-
-							<a>Modo escuro</a>
-						</div>
-					</div>
-
-					<div className="user-pnl-extras">
-						<div onClick={openAddCmt}>
-							<PlusIcon />
-							<p>Criar uma comunidade</p>
-						</div>
-						<div>
-							<InterrogationIcon />
-							<p>Centro de ajuda</p>
-						</div>
-						<div>
-							<ExclamationIcon />
-							<p>Termos e Políticas</p>
-						</div>
-					</div>
-
-					<div onClick={userLogout} className="up-exit">
-						<ExitIcon />
-						<p>Terminar sessão</p>
-					</div>
-				</div>
-			)}
-
-			{loginModal && <LoginModal onClickOutside={onClickOutside} setLoginModal={setLoginModal} />}
-			{addCmtModal && <AddCmtModal />}
-			{leftBar && <HdrLeftBar onClickOutside={onClickOutside} />}
+			{userPanel && <UserPanel />}
 		</>
 	);
 };

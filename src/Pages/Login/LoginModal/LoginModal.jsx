@@ -1,15 +1,20 @@
 import React from 'react';
 import './LoginModal.scss';
 import { useForm } from 'react-hook-form';
-import { UserContext } from '../../../Contexts/UserContext';
-import CustomInput from './../../../Components/CustomForm/CustomInput/CustomInput';
+import useUtils from '../../../Hooks/useUtils';
 import GoogleIcon from '../../../Assets/icons/GoogleIcon';
 import AppleIcon from './../../../Assets/icons/AppleIcon';
+import { UserContext } from '../../../Contexts/UserContext';
+import { GlobalContext } from '../../../Contexts/GlobalContext';
+import CustomInput from './../../../Components/CustomForm/CustomInput/CustomInput';
 
-const LoginModal = ({ setLoginModal, onClickOutside }) => {
+const LoginModal = () => {
 	const [signUpModal, setSignUpModal] = React.useState(false);
 
 	const { userLogin, userRegister, login, error, loading } = React.useContext(UserContext);
+	const { loginModal, setLoginModal } = React.useContext(GlobalContext);
+
+	const { closeModal } = useUtils();
 
 	const {
 		register,
@@ -31,7 +36,12 @@ const LoginModal = ({ setLoginModal, onClickOutside }) => {
 	}, [login]);
 
 	return (
-		<div onClick={onClickOutside} className="lgn-md-ctr">
+		<div
+			onClick={(e) => {
+				closeModal(e, loginModal, setLoginModal);
+			}}
+			className="lgn-md-ctr"
+		>
 			<div className="lgn-md-box">
 				<div className="lgn-md-box-header">
 					<h1>Entrar</h1>

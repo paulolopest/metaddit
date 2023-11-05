@@ -112,7 +112,7 @@ const Header = () => {
 						)}
 
 						{login ? (
-							<div onClick={() => setUserPanel(!userPanel)} className="hdr-profile">
+							<button onClick={() => setUserPanel(true)} className="hdr-profile">
 								<div className="hdr-profile-pic">
 									{/* esse h1 embaixo é a foto de perfil */}
 									<h1 />
@@ -126,7 +126,9 @@ const Header = () => {
 									</div>
 								</div>
 								<Icon.CaretDown style={{ rotate: `${userPanel ? '360deg' : '180deg'}` }} />
-							</div>
+
+								{userPanel && <UserPanel />}
+							</button>
 						) : (
 							<button onClick={() => setLoginModal(!loginModal)} className="hdr-loginButton">
 								Entrar
@@ -154,8 +156,6 @@ const Header = () => {
 					</>
 				)}
 			</div>
-
-			{userPanel && <UserPanel />}
 		</>
 	);
 };

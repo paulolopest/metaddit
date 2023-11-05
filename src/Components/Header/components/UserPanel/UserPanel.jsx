@@ -6,8 +6,16 @@ import { UserContext } from '../../../../Contexts/UserContext';
 import { GlobalContext } from '../../../../Contexts/GlobalContext';
 
 const UserPanel = () => {
+	const [side, setSide] = React.useState(false);
+
 	const { userLogout } = React.useContext(UserContext);
 	const { setAddCmtModal } = React.useContext(GlobalContext);
+
+	console.log(side);
+
+	const switchSide = () => {
+		setSide(!side);
+	};
 
 	return (
 		<div className="user-pnl-ctr animeDown">
@@ -22,7 +30,13 @@ const UserPanel = () => {
 
 					<Link to={'/settings'}>Configurações</Link>
 
-					<a>Modo escuro</a>
+					<div className="upc-nm">
+						<a>Modo escuro</a>
+
+						<div onClick={switchSide}>
+							<span style={{ right: side && 0 }}></span>
+						</div>
+					</div>
 				</div>
 			</div>
 

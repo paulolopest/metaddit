@@ -1,25 +1,25 @@
 import React from 'react';
 import './HdrNavList.scss';
-import * as Icon from '@phosphor-icons/react';
 import { Link } from 'react-router-dom';
+import * as Icon from '@phosphor-icons/react';
 
-const HdrNavList = ({ moddedCMT, followedCMT }) => {
+const HdrNavList = ({ moddedCMT, followedCMT, setNavList }) => {
 	const followedList = followedCMT?.data?.map((community) => (
-		<div key={community.id}>
+		<Link to={`/m/${community.name}`} key={community.id}>
 			{community.profile_img ? <img src={community.profile_img} alt="" /> : <span>m/</span>}
-			<Link to={`/m/${community.name}`}>{community.name}</Link>
-		</div>
+			<p>{community.name}</p>
+		</Link>
 	));
 
 	const moddedList = moddedCMT?.data?.map((community) => (
-		<div key={community.id}>
+		<Link to={`/m/${community.name}`} key={community.id}>
 			{community.profile_img ? <img src={community.profile_img} alt="" /> : <span>m/</span>}
-			<Link to={`/m/${community.name}`}>{community.name}</Link>{' '}
-		</div>
+			<p>{community.name}</p>
+		</Link>
 	));
 
 	return (
-		<div className="hdr-nav-list animeDown">
+		<div onBlurCapture={() => setNavList(false)} className="hdr-nav-list animeDown">
 			<div className="hdr-nl-list">
 				<span>Moderação</span>
 				<div>{moddedList}</div>

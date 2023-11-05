@@ -36,10 +36,6 @@ const Header = () => {
 	useCloseEsc(setUserPanel);
 	useCloseEsc(setSearchModal);
 
-	const timerModal = () => {
-		setTimeout(() => setNavList(false), 1500);
-	};
-
 	React.useEffect(() => {
 		const { url, headers } = ur.GET_FOLLOWED_COMMUNITIES();
 
@@ -71,8 +67,7 @@ const Header = () => {
 
 				{!mediumScreen && (
 					<button
-						onClick={() => setNavList(true)}
-						onFocus={timerModal}
+						onClick={() => setNavList(!navList)}
 						className={login ? 'hdr-userList' : 'displayNone'}
 					>
 						<div className="hdr-ul-ctr">
@@ -82,7 +77,9 @@ const Header = () => {
 
 						<Icon.CaretDown />
 
-						{navList && <HdrNavList moddedCMT={moddedCMT} followedCMT={followedCMT} />}
+						{navList && (
+							<HdrNavList setNavList={setNavList} moddedCMT={moddedCMT} followedCMT={followedCMT} />
+						)}
 					</button>
 				)}
 

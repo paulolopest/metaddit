@@ -5,6 +5,7 @@ import Header from './../Components/Header/Header';
 import IndexStorage from '../Contexts/ContextIndex';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ModalIndex from './../Components/ModalIndex/ModalIndex';
+import Community from './../Pages/Community/Community';
 
 const RouterConfig = () => {
 	return (
@@ -15,6 +16,7 @@ const RouterConfig = () => {
 
 				<Routes>
 					<Route path="/" element={<Home />} />
+					<Route path="/m/*" element={<Community />} />
 					<Route path="/login/*" element={<Login />} />
 				</Routes>
 			</IndexStorage>

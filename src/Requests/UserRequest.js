@@ -25,6 +25,23 @@ export class UserRequest {
 		};
 	};
 
+	GET_FOLLOWED_COMMUNITIES = () => {
+		return {
+			url: `${BASE_URL}/profile/followed/communities`,
+			headers: {
+				Authorization: token,
+			},
+		};
+	};
+	GET_MODDED_COMMUNITIES = () => {
+		return {
+			url: `${BASE_URL}/profile/mod/communities`,
+			headers: {
+				Authorization: token,
+			},
+		};
+	};
+
 	VALIDATE_TOKEN = () => {
 		return {
 			url: `${BASE_URL}/user/validate-token`,

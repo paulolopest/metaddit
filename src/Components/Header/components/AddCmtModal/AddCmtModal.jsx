@@ -36,8 +36,6 @@ const AddCmtModal = () => {
 	const onClickCreateCmt = async () => {
 		const { url, headers } = communityRequest.CREATE_COMMUNITY();
 
-		console.log(headers);
-
 		const body = {
 			name: cmtName,
 			communityPrivacy: cmtType,

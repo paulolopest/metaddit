@@ -2,16 +2,18 @@ import './Header.scss';
 import React from 'react';
 import useUtils from '../../Hooks/useUtils';
 import * as Icon from '@phosphor-icons/react';
+import useAxios from './../../Hooks/useAxios';
 import SiteIcon from './../../Assets/icons/SiteIcon';
 import KarmaIcon from './../../Assets/icons/KarmaIcon';
 import { UserContext } from '../../Contexts/UserContext';
 import UserPanel from './components/UserPanel/UserPanel';
+import { UserRequest } from './../../Requests/UserRequest';
+import HdrNavList from './components/HdrNavList/HdrNavList';
 import { GlobalContext } from '../../Contexts/GlobalContext';
 import whiteBanner from '../../Assets/imgs/metaddit_white.png';
 import blackBanner from '../../Assets/imgs/metaddit_black.png';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import HdrSearchModal from './components/HdrSearchModal/HdrSearchModal';
-import HdrNavList from './components/HdrNavList/HdrNavList';
 
 const Header = () => {
 	const [navList, setNavList] = React.useState(false);
@@ -22,12 +24,33 @@ const Header = () => {
 	const { leftBar, loginModal, setLeftBar, smallScreen, mediumScreen, mobileScreen, setLoginModal } =
 		React.useContext(GlobalContext);
 
+	const ur = new UserRequest();
+
+	const followedCMT = useAxios();
+	const moddedCMT = useAxios();
+
 	const location = useLocation();
 	const navigate = useNavigate();
 	const { useCloseEsc } = useUtils();
 
 	useCloseEsc(setUserPanel);
 	useCloseEsc(setSearchModal);
+
+	const timerModal = () => {
+		setTimeout(() => setNavList(false), 1500);
+	};
+
+	React.useEffect(() => {
+		const { url, headers } = ur.GET_FOLLOWED_COMMUNITIES();
+
+		followedCMT.get(url, { headers });
+	}, []);
+
+	React.useEffect(() => {
+		const { url, headers } = ur.GET_MODDED_COMMUNITIES();
+
+		moddedCMT.get(url, { headers });
+	}, []);
 
 	React.useEffect(() => {
 		if (login) getProfile();
@@ -48,8 +71,8 @@ const Header = () => {
 
 				{!mediumScreen && (
 					<button
-						onClick={() => setNavList(!navList)}
-						// onBlur={() => setNavList(false)}
+						onClick={() => setNavList(true)}
+						onFocus={timerModal}
 						className={login ? 'hdr-userList' : 'displayNone'}
 					>
 						<div className="hdr-ul-ctr">
@@ -59,7 +82,7 @@ const Header = () => {
 
 						<Icon.CaretDown />
 
-						{navList && <HdrNavList />}
+						{navList && <HdrNavList moddedCMT={moddedCMT} followedCMT={followedCMT} />}
 					</button>
 				)}
 

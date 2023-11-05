@@ -13,8 +13,6 @@ const Login = () => {
 
 	const { error, loading, userLogin, userRegister } = React.useContext(UserContext);
 
-	console.log(error);
-
 	const {
 		register,
 		handleSubmit,

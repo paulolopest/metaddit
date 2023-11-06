@@ -1,0 +1,255 @@
+@import '../../Styles/Style.scss';
+
+.communityPage {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	width: 100%;
+}
+
+.community-hdr {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	height: 21.5rem;
+}
+
+.cmt-hdr-banner {
+	width: 100%;
+	background-color: lightblue;
+	height: 15rem;
+}
+
+.cmt-hdr-info {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	height: 6.5rem;
+	width: 100%;
+	background-color: white;
+
+	.cmt-hdr-if-name {
+		display: flex;
+		align-items: flex-start;
+		padding-top: 0.5rem;
+		height: 80%;
+		position: relative;
+		width: 62.5%;
+
+		.cmt-logo,
+		img {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 2rem;
+			color: white;
+			width: 5rem;
+			height: 5rem;
+			border-radius: 100%;
+			border: 3px solid white;
+			background-color: lightcoral;
+			position: absolute;
+			top: -1rem;
+		}
+
+		.cmt-if-title {
+			display: flex;
+			flex-direction: column;
+			gap: 0.4rem 0;
+			margin-left: 6rem;
+
+			p {
+				font-size: 1.8rem;
+				font-weight: bold;
+			}
+
+			span {
+				font-size: 0.9rem;
+				color: #7c7c7c;
+			}
+		}
+
+		.cmt-if-btn {
+			display: flex;
+			align-items: center;
+			gap: 0 0.5rem;
+			margin-left: 1.5rem;
+
+			button {
+				height: 2rem;
+				width: 6rem;
+				background-color: transparent;
+				outline: none;
+				border: 1px solid $customBlue;
+				border-radius: 15px;
+				font-weight: bold;
+				color: $customBlue;
+				font-size: 1rem;
+			}
+
+			div {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 2rem;
+				height: 2rem;
+				border-radius: 100%;
+				border: 1px solid $customBlue;
+
+				svg {
+					width: 1.5rem;
+					height: 1.5rem;
+					color: $customBlue;
+				}
+			}
+		}
+	}
+
+	.cmt-hdr-if-ftr {
+		display: flex;
+		align-items: flex-end;
+		gap: 0 0.7rem;
+		height: 20%;
+		width: 62.5%;
+
+		p {
+			font-size: 0.9rem;
+			padding: 0.2rem;
+			cursor: pointer;
+			color: #3c3c3c;
+		}
+	}
+}
+
+.community-main-sct {
+	display: flex;
+	justify-content: center;
+	height: 100vh;
+
+	.cmt-ctr {
+		display: flex;
+		width: 62.5%;
+		justify-content: space-between;
+
+		.cmt-ctr-feed {
+			width: 39rem;
+
+			.cmt-feed-hdr {
+				display: flex;
+				flex-direction: column;
+				gap: 1rem 0;
+				padding-top: 1rem;
+
+				.cmt-feed-create {
+					display: flex;
+					background-color: white;
+					padding: 0 0.5rem;
+					height: 3.5rem;
+					align-items: center;
+					justify-content: space-between;
+					border: 1px solid #a1a1a1;
+					border-radius: 3px;
+
+					img {
+						width: 2.5rem;
+						height: 2.5rem;
+						border-radius: 100%;
+						background-color: #d1d1d1;
+					}
+
+					button {
+						display: flex;
+						align-items: center;
+						height: 2.5rem;
+						background-color: #f1f1f1;
+						color: #7c7c7c;
+						width: 80%;
+						outline: none;
+						border: 1px solid #e1e1e1;
+						border-radius: 3px;
+						padding-left: 1rem;
+						font-size: 0.9rem;
+						transition: 0.2s ease-in-out;
+
+						&:hover {
+							border: 1px solid $customBlue;
+							color: $customBlue;
+							background-color: white;
+						}
+					}
+
+					div {
+						display: flex;
+						align-items: center;
+
+						div {
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							width: 2rem;
+							height: 2rem;
+							cursor: pointer;
+							border-radius: 3px;
+							transition: 0.1s ease-in-out;
+
+							svg {
+								width: 1.5rem;
+								height: 1.5rem;
+								color: #a1a1a1;
+							}
+
+							&:hover {
+								background-color: #e1e1e1;
+							}
+						}
+					}
+				}
+
+				.cmt-feed-filter {
+					display: flex;
+					gap: 0 1rem;
+					background-color: white;
+					height: 3.5rem;
+					align-items: center;
+					padding: 0 0.5rem;
+					border: 1px solid #a1a1a1;
+					border-radius: 3px;
+
+					div {
+						display: flex;
+						gap: 0 0.4rem;
+						align-items: center;
+						padding: 0.5rem;
+						font-weight: bold;
+						color: #7c7c7c;
+						border-radius: 15px;
+						cursor: pointer;
+						transition: 0.2s ease-in-out;
+						font-size: 0.95rem;
+
+						svg {
+							width: 1.3rem;
+							height: 1.3rem;
+						}
+
+						&:hover {
+							background-color: #e1e1e1;
+							color: $customBlue;
+
+							svg {
+								color: $customBlue;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		.cmt-ctr-info {
+			width: 19rem;
+			background-color: blue;
+		}
+	}
+}

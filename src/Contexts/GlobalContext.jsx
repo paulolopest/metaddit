@@ -5,7 +5,7 @@ export const GlobalContext = React.createContext('');
 
 const GlobalStorage = ({ children }) => {
 	const [loginModal, setLoginModal] = React.useState(false);
-	const [addCmtModal, setAddCmtModal] = React.useState(true);
+	const [addCmtModal, setAddCmtModal] = React.useState(false);
 	const [leftBar, setLeftBar] = React.useState(false);
 
 	const mediumScreen = useMedia('(max-width: 1050px)');

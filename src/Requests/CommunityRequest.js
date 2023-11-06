@@ -10,4 +10,10 @@ export class CommunityRequest {
 			},
 		};
 	};
+
+	GET_COMMUNITY = (name) => {
+		return {
+			url: `${BASE_URL}/community/${name}`,
+		};
+	};
 }

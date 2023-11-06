@@ -13,6 +13,7 @@ import { GlobalContext } from '../../Contexts/GlobalContext';
 import whiteBanner from '../../Assets/imgs/metaddit_white.png';
 import blackBanner from '../../Assets/imgs/metaddit_black.png';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import DefaultProfileIcon from '../../Assets/icons/redditProfile.svg';
 import HdrSearchModal from './components/HdrSearchModal/HdrSearchModal';
 
 const Header = () => {
@@ -35,6 +36,7 @@ const Header = () => {
 
 	useCloseEsc(setUserPanel);
 	useCloseEsc(setSearchModal);
+	useCloseEsc(setNavList);
 
 	React.useEffect(() => {
 		const { url, headers } = ur.GET_FOLLOWED_COMMUNITIES();
@@ -114,8 +116,7 @@ const Header = () => {
 						{login ? (
 							<button onClick={() => setUserPanel(true)} className="hdr-profile">
 								<div className="hdr-profile-pic">
-									{/* esse h1 embaixo é a foto de perfil */}
-									<h1 />
+									<img src={data?.profile_img ? data?.profile_img : DefaultProfileIcon} />
 
 									<div>
 										<p>{data?.username}</p>

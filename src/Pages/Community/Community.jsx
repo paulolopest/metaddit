@@ -1,6 +1,6 @@
 import React from 'react';
 import './Community.scss';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import useAxios from './../../Hooks/useAxios';
 import * as Icon from '@phosphor-icons/react';
 import { UserContext } from './../../Contexts/UserContext';
@@ -133,14 +133,29 @@ const Community = () => {
 
 					<div className="cmt-ctr-info">
 						<div className="cmt-if-desc">
-							<p>Sobre a comunidade</p>
+							<div className="cmt-if-dsc-hdr">
+								<p>Sobre a comunidade</p>
 
-							<div>
-								{community?.data?.bio && (
-									<p>
-										{community?.data?.bio} {isMod && <Icon.PencilSimple />}
-									</p>
+								{isMod && (
+									<div>
+										<Icon.Shield />
+										<Link to={'/'}>Moderação</Link>
+									</div>
 								)}
+							</div>
+
+							<div className="cmt-if-dsc-main">
+								<div className="dsc-main-bio">
+									{community?.data?.bio && <p>{community?.data?.bio}</p>}
+
+									{isMod && <Icon.PencilSimple />}
+								</div>
+
+								<div className="dsc-main-ctd_at">
+									<Icon.Cake />
+									<p>Criado em</p>
+									<p>{community?.data?.created_at.slice(0, 10).replaceAll('-', '/')}</p>
+								</div>
 							</div>
 						</div>
 						<div className="cmt-if-flags"></div>

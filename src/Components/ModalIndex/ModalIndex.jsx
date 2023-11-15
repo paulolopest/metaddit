@@ -6,13 +6,18 @@ import useUtils from '../../Hooks/useUtils';
 import HdrLeftBar from './../Header/components/HdrLeftBar/HdrLeftBar';
 
 const ModalIndex = () => {
-	const { loginModal, addCmtModal, leftBar } = React.useContext(GlobalContext);
+	const { loginModal, addCmtModal, leftBar, setLoginModal, setAddCmtModal, setLeftBar } =
+		React.useContext(GlobalContext);
 
-	const { useFreezeScreen } = useUtils();
+	const { useFreezeScreen, useCloseEsc } = useUtils();
 
 	useFreezeScreen(loginModal);
 	useFreezeScreen(addCmtModal);
 	useFreezeScreen(leftBar);
+
+	useCloseEsc(setLoginModal);
+	useCloseEsc(setAddCmtModal);
+	useCloseEsc(setLeftBar);
 
 	return (
 		<>

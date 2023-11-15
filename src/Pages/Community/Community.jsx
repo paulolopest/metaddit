@@ -1,29 +1,58 @@
 import React from 'react';
 import './Community.scss';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import useAxios from './../../Hooks/useAxios';
 import * as Icon from '@phosphor-icons/react';
+import { UserContext } from './../../Contexts/UserContext';
 import { CommunityRequest } from '../../Requests/CommunityRequest';
 import DefaultProfileIcon from '../../Assets/icons/redditProfile.svg';
-import { UserContext } from './../../Contexts/UserContext';
 
 const Community = () => {
+	const [isMod, setIsMod] = React.useState(false);
 	const user = React.useContext(UserContext);
 
 	const CMTReq = new CommunityRequest();
-
 	const params = useParams()['*'];
-	const community = useAxios();
 
-	console.log(params);
+	const community = useAxios();
+	const req = useAxios();
+	const mods = useAxios();
+
+	const communityId = community?.data?.id;
+	let modsId = [];
+
+	const test =
+		mods?.data &&
+		mods?.data?.filter((mod) => {
+			return (modsId = [...modsId, mod.id]);
+		});
 
 	React.useEffect(() => {
-		const { url } = CMTReq.GET_COMMUNITY(params);
+		if (params) {
+			const { url } = CMTReq.GET_COMMUNITY(params);
 
-		community.get(url);
+			community.get(url);
+		}
 	}, [params]);
 
-	console.log(community.data && community.data);
+	React.useEffect(() => {
+		const { url } = CMTReq.GET_MODS(communityId);
+
+		mods.get(url);
+	}, [communityId]);
+
+	React.useEffect(() => {
+		const verifyMod = modsId.find((id) => id === user?.data?.id);
+
+		if (verifyMod) {
+			setIsMod(true);
+		} else {
+			setIsMod(false);
+		}
+	}, [params, communityId, modsId, isMod]);
+
+	if (req.loading) return <p>Loading...</p>;
+	if (community.loading) return <p>Loading...</p>;
 
 	return (
 		<div className="communityPage">
@@ -102,7 +131,23 @@ const Community = () => {
 						</div>
 					</div>
 
-					<div className="cmt-ctr-info"></div>
+					<div className="cmt-ctr-info">
+						<div className="cmt-if-desc">
+							<p>Sobre a comunidade</p>
+
+							<div>
+								{community?.data?.bio && (
+									<p>
+										{community?.data?.bio} {isMod && <Icon.PencilSimple />}
+									</p>
+								)}
+							</div>
+						</div>
+						<div className="cmt-if-flags"></div>
+						<div className="cmt-if-rules"></div>
+						<div className="cmt-if-mods"></div>
+						<div className="cmt-if-related"></div>
+					</div>
 				</div>
 			</div>
 		</div>

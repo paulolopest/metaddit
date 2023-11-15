@@ -46,6 +46,7 @@ const UserStorage = ({ children }) => {
 			await getProfile(token);
 
 			window.location.reload();
+
 			setLogin(true);
 		} catch (err) {
 			setData(null);

@@ -127,6 +127,7 @@
 	display: flex;
 	justify-content: center;
 	height: 100vh;
+	padding-top: 1rem;
 
 	.cmt-ctr {
 		display: flex;
@@ -134,13 +135,14 @@
 		justify-content: space-between;
 
 		.cmt-ctr-feed {
+			display: flex;
+			flex-direction: column;
 			width: 39rem;
 
 			.cmt-feed-hdr {
 				display: flex;
 				flex-direction: column;
 				gap: 1rem 0;
-				padding-top: 1rem;
 
 				.cmt-feed-create {
 					display: flex;
@@ -149,7 +151,7 @@
 					height: 3.5rem;
 					align-items: center;
 					justify-content: space-between;
-					border: 1px solid #a1a1a1;
+					border: 1px solid #c1c1c1;
 					border-radius: 3px;
 
 					img {
@@ -214,7 +216,7 @@
 					height: 3.5rem;
 					align-items: center;
 					padding: 0 0.5rem;
-					border: 1px solid #a1a1a1;
+					border: 1px solid #c1c1c1;
 					border-radius: 3px;
 
 					div {
@@ -248,8 +250,11 @@
 		}
 
 		.cmt-ctr-info {
+			display: flex;
+			flex-direction: column;
 			width: 19rem;
-			background-color: blue;
+			background-color: bisque;
+			padding: 1rem 0.5rem;
 		}
 	}
 }

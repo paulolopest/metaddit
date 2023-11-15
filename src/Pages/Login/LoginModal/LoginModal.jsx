@@ -42,7 +42,7 @@ const LoginModal = () => {
 			}}
 			className="lgn-md-ctr"
 		>
-			<div className="lgn-md-box">
+			<div className="lgn-md-box animeFadeIn">
 				<div className="lgn-md-box-header">
 					<h1>Entrar</h1>
 					<p>
@@ -76,7 +76,7 @@ const LoginModal = () => {
 								<CustomInput
 									register={register}
 									name="credential"
-									type="email"
+									type="text"
 									required={'Preencha esse campo'}
 									errors={errors.credential?.message}
 									placeholder={!signUpModal ? 'Email ou username' : 'Email'}

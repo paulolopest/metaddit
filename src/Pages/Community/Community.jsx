@@ -1,30 +1,28 @@
 import React from 'react';
 import './Community.scss';
-import { Link, useParams } from 'react-router-dom';
 import useAxios from './../../Hooks/useAxios';
 import * as Icon from '@phosphor-icons/react';
+import { Link, useParams } from 'react-router-dom';
 import { UserContext } from './../../Contexts/UserContext';
 import { CommunityRequest } from '../../Requests/CommunityRequest';
 import DefaultProfileIcon from '../../Assets/icons/redditProfile.svg';
 
 const Community = () => {
 	const [isMod, setIsMod] = React.useState(false);
-	const user = React.useContext(UserContext);
 
 	const CMTReq = new CommunityRequest();
-	const params = useParams()['*'];
 
+	const user = React.useContext(UserContext);
+	const params = useParams()['*'];
 	const community = useAxios();
-	const req = useAxios();
-	const mods = useAxios();
 
 	const communityId = community?.data?.id;
 	let modsId = [];
 
-	const test =
-		mods?.data &&
-		mods?.data?.filter((mod) => {
-			return (modsId = [...modsId, mod.id]);
+	const modIdFilter =
+		community?.data &&
+		community?.data?.Community_Mods.filter((mod) => {
+			return (modsId = [...modsId, mod.user_id]);
 		});
 
 	React.useEffect(() => {
@@ -36,12 +34,6 @@ const Community = () => {
 	}, [params]);
 
 	React.useEffect(() => {
-		const { url } = CMTReq.GET_MODS(communityId);
-
-		mods.get(url);
-	}, [communityId]);
-
-	React.useEffect(() => {
 		const verifyMod = modsId.find((id) => id === user?.data?.id);
 
 		if (verifyMod) {
@@ -51,7 +43,6 @@ const Community = () => {
 		}
 	}, [params, communityId, modsId, isMod]);
 
-	if (req.loading) return <p>Loading...</p>;
 	if (community.loading) return <p>Loading...</p>;
 
 	return (
@@ -156,6 +147,33 @@ const Community = () => {
 									<p>Criado em</p>
 									<p>{community?.data?.created_at.slice(0, 10).replaceAll('-', '/')}</p>
 								</div>
+							</div>
+
+							<div className="cmt-if-dsc-adt-if">
+								<div>
+									<span> {community?.data?._count.User_Community_Follow}</span>
+									<p>Membros</p>
+								</div>
+
+								<div>
+									<span> {community?.data?._count.Post}</span>
+									<p>Posts</p>
+								</div>
+
+								<div />
+							</div>
+
+							<div className="cmt-if-dsc-add-pst">
+								<button>Criar Post</button>
+							</div>
+
+							<div className="cmt-if-dsc-ftr">
+								<div>
+									<Icon.EyeSlash />
+									<p>Tema da comunidade</p>
+								</div>
+
+								<div className="onOff"></div>
 							</div>
 						</div>
 						<div className="cmt-if-flags"></div>

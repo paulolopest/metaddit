@@ -126,8 +126,7 @@
 .community-main-sct {
 	display: flex;
 	justify-content: center;
-	height: 100vh;
-	padding-top: 1rem;
+	padding: 1rem 0;
 
 	.cmt-ctr {
 		display: flex;
@@ -255,15 +254,17 @@
 			width: 19rem;
 			background-color: white;
 			padding: 1rem 0.7rem;
+			border: 1px solid #c1c1c1;
+			border-radius: 3px;
 
 			.cmt-if-desc {
 				display: flex;
 				flex-direction: column;
-				gap: 1.5rem 0;
 
 				.cmt-if-dsc-hdr {
 					display: flex;
 					justify-content: space-between;
+					padding-bottom: 0.5rem;
 
 					p {
 						font-size: 1rem;
@@ -291,7 +292,7 @@
 					flex-direction: column;
 					gap: 0.8rem 0;
 					border-bottom: 1px solid #e1e1e1;
-					padding-bottom: 1rem;
+					padding: 1rem 0;
 
 					.dsc-main-bio {
 						display: flex;
@@ -320,6 +321,77 @@
 						}
 					}
 				}
+
+				.cmt-if-dsc-adt-if {
+					display: flex;
+					justify-content: space-between;
+					border-bottom: 1px solid #e1e1e1;
+					align-items: center;
+					padding: 1rem 0;
+
+					div {
+						display: flex;
+						flex-direction: column;
+						gap: 0.5rem 0;
+						align-items: center;
+						width: 4.5rem;
+
+						p {
+							font-size: 0.8rem;
+							color: #7c7c7c;
+						}
+					}
+				}
+
+				.cmt-if-dsc-add-pst {
+					display: flex;
+					border-bottom: 1px solid #e1e1e1;
+					padding: 1rem 0.5rem;
+					justify-content: center;
+
+					button {
+						width: 100%;
+						height: 2rem;
+						border: none;
+						outline: none;
+						background-color: $customBlue;
+						font-weight: bold;
+						font-size: 0.9rem;
+						border-radius: 15px;
+						color: white;
+						transition: 0.1s ease-in-out;
+
+						&:hover {
+							background-color: #0090d0;
+						}
+					}
+				}
+
+				.cmt-if-dsc-ftr {
+					display: flex;
+					justify-content: space-between;
+					padding: 1rem 0.5rem 0rem 0.5rem;
+					align-items: center;
+
+					div {
+						display: flex;
+						align-items: center;
+						gap: 0 0.2rem;
+
+						p {
+							font-size: 0.9rem;
+						}
+					}
+
+					.onOff {
+						width: 2rem;
+						height: 1.5rem;
+						background-color: bisque;
+					}
+				}
+			}
+
+			.cmt-if-flag {
 			}
 		}
 	}

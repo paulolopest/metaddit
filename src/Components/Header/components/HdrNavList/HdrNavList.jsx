@@ -21,14 +21,14 @@ const HdrNavList = ({ moddedCMT, followedCMT, setNavList }) => {
 	return (
 		<div onBlurCapture={() => setNavList(false)} className="hdr-nav-list animeDown">
 			<div className="hdr-nl-list">
-				<span>Moderação</span>
-				<div>{moddedList}</div>
-			</div>
-
-			<div className="hdr-nl-list">
 				<span>Minhas comunidades</span>
 
 				<div>{followedList}</div>
+			</div>
+
+			<div className="hdr-nl-list">
+				<span>Moderação</span>
+				<div>{moddedList}</div>
 			</div>
 
 			<div className="hdr-nl-list">

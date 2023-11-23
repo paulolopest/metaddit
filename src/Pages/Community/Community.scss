@@ -5,6 +5,7 @@
 	flex-direction: column;
 	min-height: 100vh;
 	width: 100%;
+	gap: 1.5rem 0;
 }
 
 .community-hdr {
@@ -126,7 +127,6 @@
 .community-main-sct {
 	display: flex;
 	justify-content: center;
-	padding: 1rem 0;
 
 	.cmt-ctr {
 		display: flex;
@@ -252,14 +252,15 @@
 			display: flex;
 			flex-direction: column;
 			width: 19rem;
-			background-color: white;
-			padding: 1rem 0.7rem;
-			border: 1px solid #c1c1c1;
-			border-radius: 3px;
+			gap: 1.5rem 0;
 
 			.cmt-if-desc {
 				display: flex;
 				flex-direction: column;
+				background-color: white;
+				padding: 1rem 0.7rem;
+				border: 1px solid #c1c1c1;
+				border-radius: 3px;
 
 				.cmt-if-dsc-hdr {
 					display: flex;
@@ -267,7 +268,7 @@
 					padding-bottom: 0.5rem;
 
 					p {
-						font-size: 1rem;
+						font-size: 0.9rem;
 						font-weight: bold;
 					}
 
@@ -391,7 +392,111 @@
 				}
 			}
 
-			.cmt-if-flag {
+			.cmt-if-flags {
+				display: flex;
+				flex-direction: column;
+				gap: 1rem 0;
+				border: 1px solid #c1c1c1;
+				background-color: white;
+				padding: 1rem 0.7rem;
+				border-radius: 3px;
+
+				p {
+					font-size: 0.9rem;
+					font-weight: bold;
+				}
+
+				div {
+					display: flex;
+					gap: 1rem 0.5rem;
+					flex-wrap: wrap;
+					cursor: pointer;
+
+					p {
+						color: white;
+						font-weight: 500;
+						padding: 0.5rem;
+						border-radius: 15px;
+					}
+				}
+			}
+
+			.cmt-if-rules {
+				display: flex;
+				flex-direction: column;
+				background-color: white;
+				padding: 1rem 0.7rem;
+				gap: 1rem 0;
+				border: 1px solid #c1c1c1;
+
+				p {
+					font-size: 0.9rem;
+					font-weight: bold;
+				}
+
+				.cmt-if-rules-ctr {
+					display: flex;
+					flex-direction: column;
+
+					.cmt-rules-card {
+						display: flex;
+						flex-direction: column;
+						gap: 0.5rem 0;
+						padding: 1rem 0;
+						border-bottom: 1px solid #e1e1e1;
+						cursor: pointer;
+
+						div {
+							display: flex;
+							justify-content: space-between;
+							gap: 0 0.5rem;
+							align-items: center;
+
+							p {
+								font-weight: 500;
+							}
+						}
+
+						span {
+							font-weight: initial;
+							font-size: 0.9rem;
+							transition: 0.2s ease-in-out;
+							line-height: 1.2;
+						}
+					}
+				}
+			}
+
+			.cmt-if-mods {
+				display: flex;
+				flex-direction: column;
+				background-color: white;
+				padding: 1rem 0.7rem;
+				gap: 1rem 0;
+				border: 1px solid #c1c1c1;
+
+				p {
+					font-size: 0.9rem;
+					font-weight: bold;
+				}
+
+				.cmt-if-mods-ctr {
+					display: flex;
+					flex-direction: column;
+
+					a {
+						padding: 0.5rem 0;
+						color: $customBlue;
+						font-size: 0.9rem;
+					}
+				}
+
+				span {
+					place-self: flex-end;
+					font-size: 0.8rem;
+					color: $customBlue;
+					cursor: pointer;
+				}
 			}
 		}
 	}

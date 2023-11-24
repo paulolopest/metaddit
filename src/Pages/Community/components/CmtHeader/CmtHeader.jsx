@@ -1,7 +1,47 @@
 import React from 'react';
 import * as Icon from '@phosphor-icons/react';
+import { UserRequest } from '../../../../Requests/UserRequest';
+import useAxios from '../../../../Hooks/useAxios';
 
-const CmtHeader = ({ community }) => {
+const CmtHeader = ({ community, user }) => {
+	const [isFlwd, setIsFlwd] = React.useState(false);
+
+	const { post, deleteReq } = useAxios();
+
+	const userReq = new UserRequest();
+
+	const followedCmt = React.useMemo(() => {
+		let cmtArray = [];
+		user?.data?.User_Community_Follow.forEach((cmt) => {
+			cmtArray = [...cmtArray, cmt.community_id];
+		});
+
+		return cmtArray;
+	}, [user?.data?.User_Community_Follow]);
+
+	const clickFollow = React.useCallback(() => {
+		const { url, headers } = userReq.FOLLOW_COMMUNITY(community?.data?.id);
+
+		post(url, null, { headers });
+
+		setIsFlwd(true);
+	}, []);
+	const clickUnfollow = React.useCallback(() => {
+		const { url, headers } = userReq.UNFOLLOW_COMMUNITY(community?.data?.id);
+
+		deleteReq(url, { headers });
+
+		setIsFlwd(false);
+	}, []);
+
+	React.useEffect(() => {
+		const checkFollow = followedCmt.includes(community?.data?.id);
+
+		if (checkFollow) setIsFlwd(true);
+
+		console.log(isFlwd);
+	}, [community?.data?.id, followedCmt, isFlwd, clickFollow, clickUnfollow]);
+
 	return (
 		<div className="community-hdr">
 			{community?.data?.banner_img ? (
@@ -24,7 +64,13 @@ const CmtHeader = ({ community }) => {
 					</div>
 
 					<div className="cmt-if-btn">
-						<button>Membro</button>
+						{isFlwd ? (
+							<button onClick={clickUnfollow} className="cmt-btn-out"></button>
+						) : (
+							<button onClick={clickFollow} className="cmt-btn-in">
+								Entrar
+							</button>
+						)}
 						<div>
 							<Icon.Bell weight="fill" />
 						</div>

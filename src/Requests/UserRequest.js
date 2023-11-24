@@ -47,4 +47,22 @@ export class UserRequest {
 			url: `${BASE_URL}/user/validate-token`,
 		};
 	};
+
+	FOLLOW_COMMUNITY = (communityId) => {
+		return {
+			url: `${BASE_URL}/user/follow/community/${communityId}`,
+			headers: {
+				Authorization: token,
+			},
+		};
+	};
+
+	UNFOLLOW_COMMUNITY = (communityId) => {
+		return {
+			url: `${BASE_URL}/user/unfollow/community/${communityId}`,
+			headers: {
+				Authorization: token,
+			},
+		};
+	};
 }

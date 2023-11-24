@@ -8,8 +8,6 @@ const CmtInfoRules = ({ community }) => {
 		setShowDesc({ show: !showDesc.show, ind: index });
 	};
 
-	console.log(showDesc);
-
 	const ruleMap = community?.data?.rules.map((rule, index) => {
 		return (
 			<div onClick={() => handleClick(index)} className="cmt-rules-card" key={rule.title}>

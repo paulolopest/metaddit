@@ -38,12 +38,28 @@ const useAxios = () => {
 		}
 	}, []);
 
+	const deleteReq = React.useCallback(async (url, options) => {
+		try {
+			setError(null);
+			setLoading(true);
+
+			let res = await axios.delete(url, options);
+		} catch (err) {
+			setData(null);
+			setError(err.response.data);
+			setLoading(false);
+		} finally {
+			setLoading(false);
+		}
+	}, []);
+
 	return {
 		data,
 		error,
 		loading,
 		get,
 		post,
+		deleteReq,
 	};
 };
 

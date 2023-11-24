@@ -46,7 +46,7 @@ const Community = () => {
 
 	return (
 		<div className="communityPage">
-			<CmtHeader community={community} />
+			<CmtHeader community={community} user={user} />
 
 			<CmtMain user={user} community={community} isMod={isMod} />
 		</div>

@@ -97,3 +97,24 @@ export const topics = [
 	'Yoga',
 	'Zumbis',
 ];
+
+export function calcTime(creationDate) {
+	const agora = new Date();
+	const creationDateObj = new Date(creationDate);
+
+	const differenceInMs = agora - creationDateObj;
+	const seconds = Math.floor(differenceInMs / 1000);
+	const minutes = Math.floor(seconds / 60);
+	const hours = Math.floor(minutes / 60);
+	const days = Math.floor(hours / 24);
+
+	if (days > 0) {
+		return days === 1 ? 'há 1 dia' : `há ${days} days`;
+	} else if (hours > 0) {
+		return hours === 1 ? 'há 1 hora' : `há ${hours} horas`;
+	} else if (minutes > 0) {
+		return minutes === 1 ? 'há 1 minuto' : `há ${minutes} minutos`;
+	} else {
+		return 'há menos de um minuto';
+	}
+}

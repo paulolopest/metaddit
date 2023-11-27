@@ -17,6 +17,12 @@ export class CommunityRequest {
 		};
 	};
 
+	GET_COMMUNITY_POSTS = (communityId) => {
+		return {
+			url: `${BASE_URL}/community/posts/${communityId}`,
+		};
+	};
+
 	GET_MODS = (communityId) => {
 		return {
 			url: `${BASE_URL}/community/${communityId}/get/mods`,

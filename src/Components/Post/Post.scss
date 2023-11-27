@@ -1,0 +1,47 @@
+.post-ctr {
+	display: flex;
+	background-color: pink;
+	width: 100%;
+	height: 25rem;
+}
+
+.post-side {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem 0;
+	width: 2.5rem;
+	background-color: #f7f7f7;
+	padding: 0.5rem 0;
+
+	p {
+		font-weight: 500;
+		font-size: 0.8rem;
+	}
+
+	svg {
+		width: 1.5rem;
+		height: 1.5rem;
+		cursor: pointer;
+		transition: 0.2s ease-in-out;
+
+		&:hover {
+			fill: #0079d3;
+		}
+	}
+}
+
+.post-main {
+	display: flex;
+	flex-direction: column;
+	padding: 0.5rem 0;
+	background-color: coral;
+	width: 100%;
+	height: 100%;
+
+	.post-main-hdr {
+		display: flex;
+		flex-direction: column;
+		background-color: azure;
+	}
+}

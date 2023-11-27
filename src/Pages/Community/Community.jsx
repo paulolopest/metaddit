@@ -13,12 +13,12 @@ const Community = () => {
 	const CMTReq = new CommunityRequest();
 
 	const community = useAxios();
+	const cmtFeed = useAxios();
 	const params = useParams()['*'];
 	const user = React.useContext(UserContext);
 
 	const communityId = community?.data?.id;
 	let modsId = [];
-
 	community?.data &&
 		community?.data?.Community_Mods.filter((mod) => {
 			return (modsId = [...modsId, mod.user_id]);
@@ -42,13 +42,19 @@ const Community = () => {
 		}
 	}, [params, communityId, modsId, isMod]);
 
-	if (community.loading) return <p>Loading...</p>;
+	React.useEffect(() => {
+		const { url } = CMTReq.GET_COMMUNITY_POSTS(communityId);
+
+		cmtFeed.get(url);
+	}, [community?.data?.id]);
+
+	if (community.loading || cmtFeed.loading) return <p>Loading...</p>;
 
 	return (
 		<div className="communityPage">
 			<CmtHeader community={community} user={user} />
 
-			<CmtMain user={user} community={community} isMod={isMod} />
+			<CmtMain user={user} community={community} isMod={isMod} posts={cmtFeed} />
 		</div>
 	);
 };

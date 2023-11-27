@@ -1,19 +1,19 @@
 import React from 'react';
+import CmtFeedHdr from './Feed/CmtFeedHdr';
 import CmtInfoDesc from './CmtInfo/CmtInfoDesc';
+import CmtInfoMods from './CmtInfo/CmtInfoMods';
 import CmtInfoFlags from './CmtInfo/CmtInfoFlags';
 import CmtInfoRules from './CmtInfo/CmtInfoRules';
-import CmtInfoMods from './CmtInfo/CmtInfoMods';
-import CmtFeedHdr from './Feed/CmtFeedHdr';
-import CmtFeed from './Feed/CmtFeed';
+import Feed from '../../../../Components/Feed/Feed';
 
-const CmtMain = ({ user, community, isMod }) => {
+const CmtMain = ({ user, community, isMod, posts }) => {
 	return (
 		<div className="community-main-sct">
 			<div className="cmt-ctr">
 				<div className="cmt-ctr-feed">
 					<CmtFeedHdr user={user} />
 
-					<CmtFeed />
+					<Feed data={posts} />
 				</div>
 
 				<div className="cmt-ctr-info">

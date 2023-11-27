@@ -11,8 +11,6 @@ const UserPanel = () => {
 	const { userLogout } = React.useContext(UserContext);
 	const { setAddCmtModal } = React.useContext(GlobalContext);
 
-	console.log(side);
-
 	const switchSide = () => {
 		setSide(!side);
 	};

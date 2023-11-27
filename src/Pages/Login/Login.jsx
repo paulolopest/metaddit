@@ -1,7 +1,6 @@
 import React from 'react';
 import './Login.scss';
 import { useForm } from 'react-hook-form';
-
 import { UserContext } from './../../Contexts/UserContext';
 import loginBanner from '../../Assets/imgs/login-banner.png';
 import CustomInput from '../../Components/CustomForm/CustomInput/CustomInput';

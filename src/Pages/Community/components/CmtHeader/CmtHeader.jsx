@@ -38,8 +38,6 @@ const CmtHeader = ({ community, user }) => {
 		const checkFollow = followedCmt.includes(community?.data?.id);
 
 		if (checkFollow) setIsFlwd(true);
-
-		console.log(isFlwd);
 	}, [community?.data?.id, followedCmt, isFlwd, clickFollow, clickUnfollow]);
 
 	return (

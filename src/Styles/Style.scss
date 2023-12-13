@@ -3,6 +3,7 @@
 @import '../Components/Header/components/HdrLeftBar/HdrLeftBar.scss';
 @import '../Components/Feed/Feed.scss';
 @import '../Components/Post/Post.scss';
+@import '../Pages/Submit/SubmitPage.scss';
 
 $strongBlack: #030303;
 $weakBlack: #1a1a1b;
@@ -17,6 +18,10 @@ $iconHeight: 1.3rem;
 .App {
 	min-height: 100vh;
 	background-color: $weakWhite;
+}
+
+.Index {
+	padding-top: 3rem;
 }
 
 .displayNone {

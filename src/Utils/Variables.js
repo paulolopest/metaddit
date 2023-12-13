@@ -98,7 +98,7 @@ export const topics = [
 	'Zumbis',
 ];
 
-export function calcTime(creationDate) {
+export const calcTime = (creationDate) => {
 	const agora = new Date();
 	const creationDateObj = new Date(creationDate);
 
@@ -109,7 +109,7 @@ export function calcTime(creationDate) {
 	const days = Math.floor(hours / 24);
 
 	if (days > 0) {
-		return days === 1 ? 'há 1 dia' : `há ${days} days`;
+		return days === 1 ? 'há 1 dia' : `há ${days} dias`;
 	} else if (hours > 0) {
 		return hours === 1 ? 'há 1 hora' : `há ${hours} horas`;
 	} else if (minutes > 0) {
@@ -117,4 +117,19 @@ export function calcTime(creationDate) {
 	} else {
 		return 'há menos de um minuto';
 	}
-}
+};
+
+export const textLimit = (text, stringSize) => {
+	if (text.length > stringSize) {
+		return text.substring(0, stringSize) + '...';
+	} else {
+		return text;
+	}
+};
+
+export const timeFilterOptions = [
+	{ option: 'Hoje', value: '24h' },
+	{ option: 'Esta semana', value: '7d' },
+	{ option: 'Este mês', value: '1m' },
+	{ option: 'Desde sempre', value: '24h' },
+];

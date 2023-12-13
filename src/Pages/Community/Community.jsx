@@ -9,6 +9,7 @@ import { CommunityRequest } from '../../Requests/CommunityRequest';
 
 const Community = () => {
 	const [isMod, setIsMod] = React.useState(false);
+	const [filter, setFilter] = React.useState({ order: 'votes', by: 'desc', at: '' });
 
 	const CMTReq = new CommunityRequest();
 
@@ -43,18 +44,18 @@ const Community = () => {
 	}, [params, communityId, modsId, isMod]);
 
 	React.useEffect(() => {
-		const { url } = CMTReq.GET_COMMUNITY_POSTS(communityId);
+		const { url } = CMTReq.GET_COMMUNITY_POSTS(communityId, filter.order, filter.by, filter.at);
 
 		cmtFeed.get(url);
-	}, [community?.data?.id]);
+	}, [community?.data?.id, filter]);
 
-	if (community.loading || cmtFeed.loading) return <p>Loading...</p>;
+	// if (community.loading || cmtFeed.loading) return <p>Loading...</p>;
 
 	return (
 		<div className="communityPage">
 			<CmtHeader community={community} user={user} />
 
-			<CmtMain user={user} community={community} isMod={isMod} posts={cmtFeed} />
+			<CmtMain user={user} community={community} isMod={isMod} posts={cmtFeed} setFilter={setFilter} />
 		</div>
 	);
 };

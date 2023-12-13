@@ -17,9 +17,9 @@ export class CommunityRequest {
 		};
 	};
 
-	GET_COMMUNITY_POSTS = (communityId) => {
+	GET_COMMUNITY_POSTS = (communityId, order, by, at) => {
 		return {
-			url: `${BASE_URL}/community/posts/${communityId}`,
+			url: `${BASE_URL}/community/posts/${communityId}/${order}/${by}?at=${at}`,
 		};
 	};
 

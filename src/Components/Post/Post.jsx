@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Icon from '@phosphor-icons/react';
-import { useParams } from 'react-router-dom';
-import { calcTime } from '../../Utils/Variables';
+import { Link, useParams } from 'react-router-dom';
+import { calcTime, textLimit } from '../../Utils/Variables';
 
 const Post = (data, key) => {
 	const params = useParams()['*'];
@@ -21,21 +21,27 @@ const Post = (data, key) => {
 			<div className="post-main">
 				<div className="post-main-hdr">
 					<p>
-						Postado por{' '}
-						<span>
-							u/{data?.data.user.username} {expendedTime}
-						</span>
+						Postado por <Link to={`/u/${data?.data.user.username}`}>u/{data?.data.user.username} </Link>
+						{expendedTime}
 					</p>
 
 					<h1>{data?.data.title}</h1>
 				</div>
 
-				<div></div>
+				{data?.data.description ? (
+					<div className="post-ctnt">{textLimit(data?.data.description, 1360)}</div>
+				) : null}
 
-				<div>
-					<div></div>
-					<div></div>
-					<div></div>
+				<div className="post-main-ftr">
+					<div>
+						<Icon.Chat />
+						<p>{data?.data._count.Comment} Comentários</p>
+					</div>
+
+					<div>
+						<Icon.ArchiveBox />
+						<p>Salvar</p>
+					</div>
 				</div>
 			</div>
 		</div>

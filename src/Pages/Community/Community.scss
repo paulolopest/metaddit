@@ -274,6 +274,31 @@
 							}
 						}
 					}
+
+					.cmt-feed-time-filter {
+						position: relative;
+					}
+
+					.time-filter-modal {
+						display: flex;
+						gap: 0 1.5rem;
+						background-color: white;
+						position: absolute;
+						border: 1px solid #3c3c3c;
+						top: 2.5rem;
+						border-radius: 0px;
+
+						&:hover {
+							background-color: white;
+							color: #7c7c7c;
+						}
+
+						p {
+							&:hover {
+								color: $customBlue;
+							}
+						}
+					}
 				}
 			}
 

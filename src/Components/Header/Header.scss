@@ -3,11 +3,13 @@
 .hdr-ctr {
 	display: flex;
 	height: 3rem;
+	width: 100%;
 	padding: 0 1.5rem;
 	align-items: center;
 	background-color: white;
 	justify-content: space-between;
-	position: relative;
+	position: fixed;
+	z-index: 100;
 
 	svg {
 		width: 1rem;

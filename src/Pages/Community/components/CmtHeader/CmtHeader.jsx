@@ -3,12 +3,12 @@ import * as Icon from '@phosphor-icons/react';
 import { UserRequest } from '../../../../Requests/UserRequest';
 import useAxios from '../../../../Hooks/useAxios';
 
-const CmtHeader = ({ community, user }) => {
+const CmtHeader = ({ community, user, setFilter }) => {
 	const [isFlwd, setIsFlwd] = React.useState(false);
 
-	const { post, deleteReq } = useAxios();
-
 	const userReq = new UserRequest();
+
+	const { post, deleteReq } = useAxios();
 
 	const followedCmt = React.useMemo(() => {
 		let cmtArray = [];
@@ -26,6 +26,7 @@ const CmtHeader = ({ community, user }) => {
 
 		setIsFlwd(true);
 	}, []);
+
 	const clickUnfollow = React.useCallback(() => {
 		const { url, headers } = userReq.UNFOLLOW_COMMUNITY(community?.data?.id);
 

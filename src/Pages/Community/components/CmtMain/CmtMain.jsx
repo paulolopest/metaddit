@@ -6,12 +6,12 @@ import CmtInfoFlags from './CmtInfo/CmtInfoFlags';
 import CmtInfoRules from './CmtInfo/CmtInfoRules';
 import Feed from '../../../../Components/Feed/Feed';
 
-const CmtMain = ({ user, community, isMod, posts }) => {
+const CmtMain = ({ user, community, isMod, posts, setFilter }) => {
 	return (
 		<div className="community-main-sct">
 			<div className="cmt-ctr">
 				<div className="cmt-ctr-feed">
-					<CmtFeedHdr user={user} />
+					<CmtFeedHdr user={user} setFilter={setFilter} />
 
 					<Feed data={posts} />
 				</div>

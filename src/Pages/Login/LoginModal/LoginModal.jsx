@@ -87,6 +87,7 @@ const LoginModal = () => {
 										}
 									}
 									watch={watch('credential')}
+									autoFocus={true}
 								/>
 								<CustomInput
 									register={register}

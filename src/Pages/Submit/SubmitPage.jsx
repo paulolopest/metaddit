@@ -4,15 +4,18 @@ import RedditStick from '../../Assets/icons/RedditStick';
 import { UserRequest } from '../../Requests/UserRequest';
 import useAxios from './../../Hooks/useAxios';
 import { GlobalContext } from './../../Contexts/GlobalContext';
+import 'react-quill/dist/quill.snow.css';
+import SubmitForm from './components/SubmitForm';
 
 const UR = new UserRequest();
 
 const SubmitPage = () => {
 	const [cmt, setCmt] = React.useState(null);
+	const [text, setText] = React.useState('');
+	const [title, setTitle] = React.useState('');
 	const [communityList, setCommunityList] = React.useState(false);
 
 	const { setAddCmtModal } = React.useContext(GlobalContext);
-
 	const flwdCmt = useAxios();
 
 	React.useEffect(() => {
@@ -62,9 +65,36 @@ const SubmitPage = () => {
 								)}
 							</button>
 						</div>
-						<div className="sbt-sct-ipt"></div>
+
+						<div className="sbt-sct-ipt">
+							<div className="sbt-sct-ipt-hdr">
+								<div>
+									<Icon.Article />
+									Postar
+								</div>
+
+								<div>
+									<Icon.Image />
+									Imagens
+								</div>
+							</div>
+
+							<div className="sbt-sct-ipt-main">
+								<SubmitForm title={title} setTitle={setTitle} text={text} setText={setText} />
+
+								<div className="sbt-post">
+									<button>Postar</button>
+								</div>
+							</div>
+
+							<div className="sbt-sct-ipt-ftr">
+								<input type="checkbox" />
+								<p>Receber notificações de respostas deste post</p>
+							</div>
+						</div>
 					</div>
 				</div>
+
 				<div className="sbt-sct-warn">
 					<div className="warn-hdr">
 						<RedditStick />

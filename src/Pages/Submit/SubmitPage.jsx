@@ -11,8 +11,7 @@ const UR = new UserRequest();
 
 const SubmitPage = () => {
 	const [cmt, setCmt] = React.useState(null);
-	const [text, setText] = React.useState('');
-	const [title, setTitle] = React.useState('');
+
 	const [communityList, setCommunityList] = React.useState(false);
 
 	const { setAddCmtModal } = React.useContext(GlobalContext);
@@ -25,7 +24,7 @@ const SubmitPage = () => {
 	}, []);
 
 	const flwdCommunities = flwdCmt?.data?.map((cmt) => (
-		<div onClick={() => setCmt(cmt)} className="flwd-cmt-mdl-card">
+		<div key={cmt.id} onClick={() => setCmt(cmt)} className="flwd-cmt-mdl-card">
 			<span />
 			<div>
 				<p>{cmt.name}</p>
@@ -54,7 +53,7 @@ const SubmitPage = () => {
 								</>
 
 								{communityList && (
-									<div className="flwd-cmt-modal">
+									<div className="flwd-cmt-modal animeDown">
 										<div className="flwd-cmt-mdl-hdr">
 											<p>Suas comunidades</p>
 
@@ -79,13 +78,7 @@ const SubmitPage = () => {
 								</div>
 							</div>
 
-							<div className="sbt-sct-ipt-main">
-								<SubmitForm title={title} setTitle={setTitle} text={text} setText={setText} />
-
-								<div className="sbt-post">
-									<button>Postar</button>
-								</div>
-							</div>
+							<SubmitForm cmt={cmt} />
 
 							<div className="sbt-sct-ipt-ftr">
 								<input type="checkbox" />

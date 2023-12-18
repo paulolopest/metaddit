@@ -70,10 +70,24 @@
 			color: #2e2e2e;
 			font-size: 1.1rem;
 		}
+
+		div {
+			display: flex;
+			align-items: center;
+			gap: 0 0.5rem;
+
+			span {
+				padding: 0.3rem;
+				color: white;
+				font-weight: bold;
+				border-radius: 3px;
+			}
+		}
 	}
 
 	.post-ctnt {
 		padding: 0.5rem;
+		overflow-y: hidden;
 	}
 
 	.post-main-ftr {
